@@ -16,9 +16,9 @@ public abstract class ElementoMultimediale {
     private String filePath;
     private Utente autore; // FK matricola, nullable
 
-    /* contruttore default
-     ElementoMultimediale() {}
-    */
+    /* contruttore default*/
+    public ElementoMultimediale() {}
+
 
     public ElementoMultimediale(Long idElementoMultimediale, String titolo, Duration durata,
                          String descrizione, LocalDateTime dataCreazione, String formato,
@@ -96,7 +96,6 @@ public abstract class ElementoMultimediale {
     public void setFilePath(String filePath) {
         this.filePath = filePath;
     }
-
 
     public Utente getAutore() {
         return autore;

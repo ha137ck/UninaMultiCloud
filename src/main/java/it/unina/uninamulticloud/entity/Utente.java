@@ -15,10 +15,11 @@ public class Utente {
     private LocalDate dataNascita;
     private LocalDateTime dataIscrizione;
     private Genere genere;
+    private Universita universita;
 
     public Utente(String matricola, String nome, String cognome, String username, 
                   String password, String email, LocalDate dataNascita, 
-                  LocalDateTime dataIscrizione, Genere genere) {
+                  LocalDateTime dataIscrizione, Genere genere, Universita universita) {
         this.matricola = matricola;
         this.nome = nome;
         this.cognome = cognome;
@@ -28,6 +29,7 @@ public class Utente {
         this.dataNascita = dataNascita;
         this.dataIscrizione = dataIscrizione;
         this.genere = genere;
+        this.universita = universita;
     }
     //costruttore default per DAO
     public Utente() {}
@@ -104,5 +106,12 @@ public class Utente {
         this.genere = genere;
     }
 
+    public Universita getUniversita() {
+        return universita;
+    }
+
+    public void setUniversita(Universita universita){
+        this.universita = universita;
+    }
 
 }

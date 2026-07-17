@@ -1,6 +1,7 @@
 package it.unina.uninamulticloud.entity;
 
 public class Universita {
+    private long idUniversita;
     private String nome;
     private String citta;
 
@@ -23,5 +24,13 @@ public class Universita {
 
     public void setCitta(String citta) {
         this.citta = citta;
+    }
+
+    public long getIdUniversita() {
+        return idUniversita;
+    }
+
+    public void setIdUniversita(long idUniversita){
+        this.idUniversita = idUniversita;
     }
 }

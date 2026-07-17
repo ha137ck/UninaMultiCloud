@@ -1,30 +1,37 @@
 package it.unina.uninamulticloud.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class Riproduzione {
-    private LocalDate data;
-    private LocalTime orario;
+    private LocalDateTime dataOrario;
+    private Utente utente;
+    private ElementoMultimediale elementoMultimediale;
 
-    public Riproduzione(LocalDate data, LocalTime orario) {
-        this.data = data;
-        this.orario = orario;
+    public Riproduzione(){};
+    public Riproduzione(LocalDateTime dataOrario) {
+        this.dataOrario = dataOrario;
     }
 
-    public LocalDate getData() {
-        return data;
+    public LocalDateTime getDataOrario() {
+        return dataOrario;
     }
 
-    public void setData(LocalDate data) {
-        this.data = data;
+    public void setDataOrario(LocalDateTime data) {
+        this.dataOrario = dataOrario;
     }
 
-    public LocalTime getOrario() {
-        return orario;
+    public Utente getUtente(){return utente;}
+
+    public void setUtente(Utente utente) {
+        this.utente = utente;
     }
 
-    public void setOrario(LocalTime orario) {
-        this.orario = orario;
+    public ElementoMultimediale getElementoMultimediale(){ return elementoMultimediale;}
+
+    public void setElementoMultimediale(ElementoMultimediale elementoMultimediale) {
+        this.elementoMultimediale = elementoMultimediale;
     }
+
 }
