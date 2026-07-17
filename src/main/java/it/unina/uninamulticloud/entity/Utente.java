@@ -29,6 +29,8 @@ public class Utente {
         this.dataIscrizione = dataIscrizione;
         this.genere = genere;
     }
+    //costruttore default per DAO
+    public Utente() {}
 
     public String getMatricola() {
         return matricola;
@@ -101,4 +103,6 @@ public class Utente {
     public void setGenere(Genere genere) {
         this.genere = genere;
     }
+
+
 }
