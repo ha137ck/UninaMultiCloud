@@ -35,6 +35,7 @@ public class DBConnection {
     }
 
     public static DBConnection getInstance() {
+        //pattern singleton
         if (instance == null) {
             instance = new DBConnection();
         }
@@ -42,15 +43,16 @@ public class DBConnection {
     }
 
     public static Connection getConnection() {
+        //pattern singleton
         try {
-            if (connection == null || connection.isClosed()) {
+            if (getInstance().connection == null || getInstance().connection.isClosed()) {
                 instance = new DBConnection();
                 return instance.connection;
             }
         } catch (SQLException e) {
             throw new RuntimeException("Errore nel controllo dello stato della connessione", e);
         }
-        return connection;
+        return getInstance().connection;
     }
 
     public void closeConnection() {
