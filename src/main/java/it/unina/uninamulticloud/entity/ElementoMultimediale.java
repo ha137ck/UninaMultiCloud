@@ -33,7 +33,7 @@ public abstract class ElementoMultimediale {
         this.autore = autore;
     }
 
-    public long getIdElementoMultimediale() {
+    public Long getIdElementoMultimediale() {
         return idElementoMultimediale;
     }
 
