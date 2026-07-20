@@ -34,7 +34,7 @@ public class RiproduzioneDAOImpl implements RiproduzioneDAO {
         // Eseguiamo una JOIN con la tabella ElementoMultimediale. In questo modo, quando
         // ricostruiamo l'oggetto nel backend, possiamo inserire anche il titolo del brano/video,
         // informazione fondamentale per mostrare una cronologia sensata nella GUI JavaFX.
-        String sql = "SELECT r.dataOrario, r.matricola, r.idElementoMultimediale, e.titolo " +
+        String sql = "SELECT r.dataOrario, r.matricola, r.idElementoMultimediale, e.titolo, e.tipo " +
                 "FROM Riproduzione r " +
                 "JOIN ElementoMultimediale e ON r.idElementoMultimediale = e.idElementoMultimediale " +
                 "WHERE r.matricola = ? " +
