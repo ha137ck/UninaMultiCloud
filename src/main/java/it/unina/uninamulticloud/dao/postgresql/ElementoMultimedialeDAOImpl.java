@@ -22,30 +22,31 @@ public class ElementoMultimedialeDAOImpl implements ElementoMultimedialeDAO {
     @Override
     public void insert(ElementoMultimediale elemento) throws SQLException {
         // idElementoMultimediale è gestito come BIGSERIAL (PK), pertanto viene omesso dall'insert statement
-        String sql = "INSERT INTO ElementoMultimediale (titolo, durata, descrizione, dataCreazione, " +
+        String sql = "INSERT INTO ElementoMultimediale (titolo, durata, descrizione, " +
                 "immagineCopertina, formato, filePath, tipo, risoluzione, bitRate, matricola) " +
-                "VALUES (?, ?::interval, ?, ?, ?, ?, ?, ?::TIPO_ELEMENTO_MULTIMEDIALE, ?, ?, ?)";
+                "VALUES (?, ?::interval, ?, ?, ?, ?, ?::TIPO_ELEMENTO_MULTIMEDIALE, ?, ?, ?)";
 
         Connection connection = DBConnection.getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, elemento.getTitolo());
             // Il formato INTERVAL di PostgreSQL accetta stringhe standard nel formato "HH:MM:SS"
-            statement.setString(2, elemento.getDurata().toString());//da testare
+            // Duration.toString() restituisce una stringa nel formato "PT1H2M3S" accettato da postgresql
+            statement.setString(2, elemento.getDurata().toString());
             statement.setString(3, elemento.getDescrizione());
-            statement.setTimestamp(4, Timestamp.valueOf(elemento.getDataCreazione()));
 
-            // Gestione dell'immagine di copertina (memorizzata come array di byte/bytea nel DB)
+            // Gestione dell'immagine di copertina (memorizzata come varchar nel DB)
             if (elemento.getImmagineCopertina() != null) {
-                statement.setString(5, elemento.getImmagineCopertina());
+                statement.setString(4, elemento.getImmagineCopertina());
             } else {
-                statement.setNull(5, Types.BINARY);
+                // In caso di valore nullo, bisogna specificare il tipo SQL: VARCHAR
+                statement.setNull(4, java.sql.Types.VARCHAR);
             }
 
-            statement.setString(6, elemento.getFormato());
-            statement.setString(7, elemento.getFilePath());
+            statement.setString(5, elemento.getFormato());
+            statement.setString(6, elemento.getFilePath());
 
-            // RISOLUZIONE POLIMORFICA DELLA GERARCHIA (Java 26 Pattern Matching)
+            // RISOLUZIONE POLIMORFICA DELLA GERARCHIA
             if (elemento instanceof Audio audio) {
                 statement.setString(8, "audio");
                 statement.setNull(9, Types.VARCHAR);          // risoluzione non presente per audio
