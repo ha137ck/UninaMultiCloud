@@ -16,14 +16,13 @@ public interface UtenteDAO {
     //Utente findByUsernameAndPassword(String email, String password);
 
    Utente findByMatricola(String matricola);
- /*
-    boolean existsByEmail(String email);
 
-    boolean existsByUsername(String username);
+   boolean existsByEmail(String email);
 
-    boolean existsByMatricola(String matricola);
+   boolean existsByUsername(String username);
 
-    void save(Utente utente);
-    */
+   boolean existsByMatricola(String matricola);
+
+   void save(Utente utente);
 
 }
