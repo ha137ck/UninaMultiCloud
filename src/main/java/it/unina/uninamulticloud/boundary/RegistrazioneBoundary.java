@@ -2,6 +2,7 @@ package it.unina.uninamulticloud.boundary;
 
 import it.unina.uninamulticloud.SceneManager;
 import it.unina.uninamulticloud.control.AutenticazioneControl;
+import it.unina.uninamulticloud.dao.postgresql.UniversitaDAOImpl;
 import it.unina.uninamulticloud.entity.Universita;
 import it.unina.uninamulticloud.entity.Utente;
 import it.unina.uninamulticloud.entity.enums.Genere;
@@ -10,6 +11,8 @@ import javafx.scene.control.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RegistrazioneBoundary {
 
@@ -37,9 +40,18 @@ public class RegistrazioneBoundary {
             genereField.getItems().add(g.name());
         }
 
-        unina = new Universita("Università degli Studi di Napoli Federico II", "Napoli");
-        unina.setIdUniversita(1L);
-        universitaField.getItems().add(unina.getNome());
+        //dato statico di test
+//        unina = new Universita("Università degli Studi di Napoli Federico II", "Napoli");
+//        unina.setIdUniversita(1L);
+//        universitaField.getItems().add(unina.getNome());
+
+        //caricamento lista uiversità come elementi del combobox
+        UniversitaDAOImpl universitaDAO = new UniversitaDAOImpl();
+        List<Universita> lista = universitaDAO.findAll();
+        for (Universita u : lista) {
+            universitaField.getItems().add(u.getNome());
+        }
+
     }
 
     @FXML

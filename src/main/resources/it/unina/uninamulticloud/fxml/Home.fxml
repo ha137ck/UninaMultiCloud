@@ -33,10 +33,10 @@
 
     <left>
         <VBox prefHeight="375.0" prefWidth="147.0" spacing="10.0">
-            <Button fx:id="homeButton" text="Home" maxWidth="Infinity" styleClass="sidebar-button" />
-            <Button fx:id="creaPlaylistButton" text="Crea Playlist" maxWidth="Infinity" styleClass="sidebar-button" />
-            <Button fx:id="caricaElementoButton" text="Carica Elemento" maxWidth="Infinity" styleClass="sidebar-button" />
-            <Button text="Carica Album" maxWidth="Infinity" styleClass="sidebar-button" />
+            <Button fx:id="homeButton" maxWidth="Infinity" styleClass="sidebar-button" text="Home" />
+            <Button fx:id="creaPlaylistButton" maxWidth="Infinity" styleClass="sidebar-button" text="Crea Playlist" />
+            <Button fx:id="caricaElementoButton" maxWidth="Infinity" styleClass="sidebar-button" text="Carica Elemento" />
+            <Button maxWidth="Infinity" styleClass="sidebar-button" text="Carica Album" />
         </VBox>
     </left>
 
