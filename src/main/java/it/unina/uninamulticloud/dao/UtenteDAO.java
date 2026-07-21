@@ -2,9 +2,6 @@ package it.unina.uninamulticloud.dao;
 
 import it.unina.uninamulticloud.entity.Utente;
 
-import java.util.List;
-import java.util.Optional;
-
 public interface UtenteDAO {
     //Optional<Utente> findByMatricola(String matricola);
     //Optional<Utente> findByUsernameAndPassword(String username, String password);
@@ -15,7 +12,7 @@ public interface UtenteDAO {
 
     //Utente findByUsernameAndPassword(String email, String password);
 
-   Utente findByMatricola(String matricola);
+   Utente findByEmail(String email);
 
    boolean existsByEmail(String email);
 
@@ -23,6 +20,6 @@ public interface UtenteDAO {
 
    boolean existsByMatricola(String matricola);
 
-   void save(Utente utente);
+   void saveUtente(Utente utente);
 
 }

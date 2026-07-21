@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: lightgray;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.uninamulticloud.boundary.RegistrazioneBoundary">
+   <children>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-padding: 30; -fx-spacing: 40;">
+         <children>
+            <Label alignment="CENTER" text="Unina Multi Cloud">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+               <effect>
+                  <DropShadow>
+                     <color>
+                        <Color red="0.8500000238418579" green="0.8500000238418579" blue="0.8500000238418579" />
+                     </color>
+                  </DropShadow>
+               </effect>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="298.0" prefWidth="1220.0" style="-fx-spacing: 20;">
+               <children>
+                  <VBox prefHeight="441.0" prefWidth="400.0" style="-fx-spacing: 20;">
+                     <children>
+                        <Label text="Nome *">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="nomeField">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="-18.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Label text="Email *">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="emailField">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="-18.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Label text="Matricola *">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="matricolaField">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="-18.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <HBox prefHeight="6.0" prefWidth="400.0" style="-fx-spacing: 108;">
+                           <children>
+                              <Label text="Genere *">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label text="Data di nascita *">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </HBox>
+                        <HBox prefHeight="25.0" prefWidth="316.0" style="-fx-spacing: 20;">
+                           <children>
+                              <ComboBox fx:id="genereField" prefHeight="146.0" prefWidth="150.0" stylesheets="@../css/style.css" />
+                              <DatePicker fx:id="dataNascitaField" prefHeight="0.0" prefWidth="158.0" stylesheets="@../css/style.css" />
+                           </children>
+                           <VBox.margin>
+                              <Insets top="-18.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="441.0" prefWidth="400.0" style="-fx-spacing: 20;">
+                     <children>
+                        <Label text="Cognome *">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="cognomeField">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="-18.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Label text="Password *">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <PasswordField fx:id="passwordField">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="-18.0" />
+                           </VBox.margin>
+                        </PasswordField>
+                        <Label text="Username *">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="usernameField">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="-18.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <Label text="Università *">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <ComboBox fx:id="universitaField" prefHeight="45.0" prefWidth="400.0" stylesheets="@../css/style.css">
+                           <VBox.margin>
+                              <Insets top="-18.0" />
+                           </VBox.margin>
+                        </ComboBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Label fx:id="errorLabel" textFill="RED">
+               <VBox.margin>
+                  <Insets bottom="-30.0" top="20.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="*: Campo Obbligatorio">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#onRegistrati" prefHeight="35.0" prefWidth="290.0" style="-fx-background-color: black;" text="Registrati" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="-25.0" />
+               </VBox.margin>
+            </Button>
+            <Hyperlink onAction="#onAccedi" text="Accedi" underline="true">
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="-20.0" top="-20.0" />
+               </VBox.margin>
+            </Hyperlink>
+         </children>
+      </VBox>
+   </children>
+</StackPane>

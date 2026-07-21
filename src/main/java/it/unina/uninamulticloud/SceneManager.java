@@ -8,6 +8,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 
+
+/////////////////////////////////////////////////
+// SCENE MANAGER PROVVISORIO NON TOCCARE M SERV
+/////////////////////////////////////////////////
+
+
 public class SceneManager {
 
     private static SceneManager instance;

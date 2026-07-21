@@ -1,0 +1,43 @@
+/* --- STILE GENERALE PER ENTRAMBI I CAMPI --- */
+.combo-box, .date-picker {
+    -fx-background-color: white;
+    -fx-border-color: #d1d5db; /* Grigio chiaro elegante */
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 2px;
+}
+
+/* Effetto quando passi sopra col mouse */
+.combo-box:hover, .date-picker:hover {
+    -fx-border-color: #9ca3af;
+}
+
+/* Effetto quando clicchi sul campo (Focus) */
+.combo-box:focused, .date-picker:focused {
+    -fx-border-color: #3b82f6; /* Blu moderno tipo Tailwind/Bootstrap */
+    -fx-border-width: 2px;
+}
+
+/* --- DETTAGLI COMBOBOX --- */
+/* Rende il pulsante della freccia piatto e pulito */
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+.combo-box .arrow {
+    -fx-background-color: black; /* Freccetta grigio scuro */
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.date-picker .arrow{
+    -fx-background-color: black;
+}
+
+/* --- DETTAGLI DATEPICKER --- */
+/* Pulisce il campo di testo interno al DatePicker */
+.date-picker > .text-field {
+    -fx-background-color: transparent;
+    -fx-padding: 5px;
+}

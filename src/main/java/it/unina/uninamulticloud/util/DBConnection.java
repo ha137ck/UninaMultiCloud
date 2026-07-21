@@ -11,7 +11,7 @@ public class DBConnection {
     private static DBConnection instance;
     private Connection connection;
 
-    private static final String CONFIG_PATH = "/it/uninamulticloud/config/db.properties";
+    private static final String CONFIG_PATH = "/it/unina/uninamulticloud/config/db.properties";
 
     private DBConnection() {
         try {

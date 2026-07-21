@@ -7,15 +7,14 @@ import it.unina.uninamulticloud.entity.enums.Genere;
 import it.unina.uninamulticloud.util.DBConnection;
 
 import java.sql.*;
-import java.util.Optional;
 
 public class UtenteDAOImpl implements UtenteDAO {
 
     @Override
-    public Utente findByMatricola(String matricola) {
-        String sql = "SELECT * FROM Utente WHERE matricola = ?";
+    public Utente findByEmail(String email) {
+        String sql = "SELECT * FROM Utente WHERE email = ?";
         try (PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
-            ps.setString(1, matricola);
+            ps.setString(1, email);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return mapResultSetToUtente(rs);
@@ -43,7 +42,7 @@ public class UtenteDAOImpl implements UtenteDAO {
     }
 
     @Override
-    public void save(Utente utente) {
+    public void saveUtente(Utente utente) {
         String query = "INSERT INTO Utente (matricola, nome, cognome, username, email, password, dataNascita, genere, dataIscrizione, idUniversita) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?::TIPO_GENERE_UTENTE, ?, ?)";
 

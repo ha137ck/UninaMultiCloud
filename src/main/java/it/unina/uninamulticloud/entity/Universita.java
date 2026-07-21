@@ -1,7 +1,7 @@
 package it.unina.uninamulticloud.entity;
 
 public class Universita {
-    private long idUniversita;
+    private long idUniversita; //DA GESTIRE
     private String nome;
     private String citta;
 
