@@ -41,3 +41,59 @@
     -fx-background-color: transparent;
     -fx-padding: 5px;
 }
+
+/* ==========================================
+   STILE BOTTONI SIDEBAR (Menu a sinistra)
+   ========================================== */
+.sidebar-button {
+    /* Layout & Dimensioni UX */
+    -fx-min-height: 40px;               /* Dimensione ideale per il target del click */
+    -fx-alignment: CENTER-LEFT;         /* Allineamento a sinistra, standard per i menu */
+    -fx-padding: 0 16px;                /* Spazio interno laterale proporzionato */
+    -fx-background-radius: 8px;         /* Angoli leggermente arrotondati (più morbidi) */
+
+    /* Colori e Tipografia */
+    -fx-background-color: transparent;  /* Fondo trasparente di base per un look pulito */
+    -fx-text-fill: #64748b;             /* Testo grigio discreto per elementi non attivi */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+
+    -fx-cursor: hand;
+}
+
+/* Hover: Feedback visivo chiaro ma non invasivo */
+.sidebar-button:hover {
+    -fx-background-color: #f1f5f9;
+    -fx-text-fill: #0f172a;
+}
+
+/* Pressed: Sensazione di pressione al click */
+.sidebar-button:pressed {
+    -fx-background-color: #e2e8f0;
+}
+
+/* ==========================================
+   STILE BOTTONE PROFILO (In alto a destra)
+   ========================================== */
+.profile-button {
+    -fx-background-color: transparent;
+    -fx-border-color: #3498db;
+    -fx-border-width: 2px;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-text-fill: #3498db;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-padding: 6px 16px;
+}
+
+.profile-button:hover {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+}
+
+.profile-button:pressed {
+    -fx-background-color: #2980b9;
+    -fx-border-color: #2980b9;
+}
