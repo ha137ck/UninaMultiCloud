@@ -1,6 +1,7 @@
 package it.unina.uninamulticloud.control;
 
 import it.unina.uninamulticloud.SceneManager;
+import it.unina.uninamulticloud.boundary.HomeBoundary;
 import it.unina.uninamulticloud.boundary.LoginBoundary;
 import it.unina.uninamulticloud.boundary.RegistrazioneBoundary;
 import it.unina.uninamulticloud.dao.UtenteDAO;
@@ -10,7 +11,10 @@ import it.unina.uninamulticloud.entity.Utente;
 public class AutenticazioneControl {
     private LoginBoundary loginView; // Il Controller deve poter parlare con la vista
     private RegistrazioneBoundary registrazioneView;
+    private HomeBoundary homeView;
     private UtenteDAO utenteDAO = new UtenteDAOImpl();
+
+    private static Utente utenteLoggato; // Variabile per memorizzare l'utente loggato
 
     public AutenticazioneControl(LoginBoundary view) {
         this.loginView = view;
@@ -18,6 +22,10 @@ public class AutenticazioneControl {
 
     public AutenticazioneControl(RegistrazioneBoundary view) {
         this.registrazioneView = view;
+    }
+
+    public AutenticazioneControl(HomeBoundary view) {
+        this.homeView = view;
     }
 
     public void login(String email, String password) {
@@ -42,6 +50,7 @@ public class AutenticazioneControl {
 
         if (utenteTrovato != null && utenteTrovato.getPassword().equals(password)) {
             loginView.showSuccess();
+            utenteLoggato = utenteTrovato;
             // passaggio alla schermata successiva
             SceneManager.getInstance().switchScene("Home.fxml");
         } else {
@@ -65,5 +74,9 @@ public class AutenticazioneControl {
             System.out.println("Errore durante la registrazione: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    public Utente getUtenteLoggato() {
+        return utenteLoggato;
     }
 }

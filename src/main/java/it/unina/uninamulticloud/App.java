@@ -8,7 +8,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
         SceneManager.getInstance().init(primaryStage);
-        SceneManager.getInstance().switchScene("login.fxml");
+        SceneManager.getInstance().switchScene("Login.fxml");
     }
 
     public static void main(String[] args) {

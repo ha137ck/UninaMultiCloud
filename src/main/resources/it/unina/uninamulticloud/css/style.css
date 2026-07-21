@@ -76,12 +76,12 @@
    STILE BOTTONE PROFILO (In alto a destra)
    ========================================== */
 .profile-button {
-    -fx-background-color: transparent;
-    -fx-border-color: #3498db;
+    -fx-background-color: black;
+    -fx-border-color: black;
     -fx-border-width: 2px;
-    -fx-border-radius: 20px;
-    -fx-background-radius: 20px;
-    -fx-text-fill: #3498db;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-font-size: 13px;
     -fx-cursor: hand;
@@ -89,11 +89,11 @@
 }
 
 .profile-button:hover {
-    -fx-background-color: #3498db;
+    -fx-background-color: black;
     -fx-text-fill: white;
 }
 
 .profile-button:pressed {
-    -fx-background-color: #2980b9;
-    -fx-border-color: #2980b9;
+    -fx-background-color: black;
+    -fx-border-color: white;
 }
