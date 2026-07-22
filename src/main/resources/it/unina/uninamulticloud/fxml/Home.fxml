@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
@@ -124,10 +125,11 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="84.0" prefWidth="846.0">
+                  <Region prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                  <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" prefHeight="124.0" prefWidth="782.0">
                      <children>
                
-                            <Button fx:id="ilMioProfiloButton" contentDisplay="CENTER" styleClass="profile-button" text="Il mio profilo" textAlignment="RIGHT">
+                            <Button fx:id="ilMioProfiloButton" alignment="CENTER_RIGHT" contentDisplay="RIGHT" styleClass="profile-button" text="Il mio profilo" textAlignment="RIGHT">
                            <HBox.margin>
                               <Insets right="60.0" />
                            </HBox.margin>
