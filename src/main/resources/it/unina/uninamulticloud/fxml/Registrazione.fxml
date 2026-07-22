@@ -140,16 +140,6 @@
                               <Insets top="-18.0" />
                            </VBox.margin>
                         </TextField>
-                        <Label text="Università *">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <ComboBox fx:id="universitaField" prefHeight="45.0" prefWidth="400.0" stylesheets="@../css/style.css">
-                           <VBox.margin>
-                              <Insets top="-18.0" />
-                           </VBox.margin>
-                        </ComboBox>
                      </children>
                   </VBox>
                </children>

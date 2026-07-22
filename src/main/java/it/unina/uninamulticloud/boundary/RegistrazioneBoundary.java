@@ -22,12 +22,9 @@ public class RegistrazioneBoundary {
     @FXML private TextField matricolaField;
     @FXML private ComboBox<String> genereField;
     @FXML private DatePicker dataNascitaField;
-    @FXML private Button registratiButton;
-    @FXML private Hyperlink accediLink;
     @FXML private Label errorLabel;
-    @FXML private ComboBox<String> universitaField;
 
-    private Universita unina;
+    //private Universita unina;
     private AutenticazioneControl autenticazioneControl;
 
     @FXML
@@ -36,10 +33,6 @@ public class RegistrazioneBoundary {
         for (Genere g : Genere.values()) {
             genereField.getItems().add(g.name());
         }
-
-        unina = new Universita("Università degli Studi di Napoli Federico II", "Napoli");
-        unina.setIdUniversita(1L);
-        universitaField.getItems().add(unina.getNome());
     }
 
     @FXML
@@ -57,9 +50,9 @@ public class RegistrazioneBoundary {
         String genere = genereField.getValue();
         LocalDate dataNascita = dataNascitaField.getValue();
         LocalDateTime dataIscrizione = LocalDateTime.now();
-
+        //l'università viene settata in autenticazioneControl
         Utente nuovoUtente = new Utente(matricola, nome, cognome, username, password, email,
-                dataNascita, dataIscrizione, Genere.valueOf(genere), unina);
+                dataNascita, dataIscrizione, Genere.valueOf(genere), null);
 
         autenticazioneControl.registra(nuovoUtente);
     }
@@ -100,11 +93,6 @@ public class RegistrazioneBoundary {
 
         if (passwordField.getText().length() < 8) {
             showError("La password deve contenere almeno 8 caratteri.");
-            return false;
-        }
-
-        if (universitaField.getValue() == null) {
-            showError("Seleziona un'università.");
             return false;
         }
 

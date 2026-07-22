@@ -3,7 +3,9 @@ package it.unina.uninamulticloud.control;
 import it.unina.uninamulticloud.SceneManager;
 import it.unina.uninamulticloud.boundary.LoginBoundary;
 import it.unina.uninamulticloud.boundary.RegistrazioneBoundary;
+import it.unina.uninamulticloud.dao.UniversitaDAO;
 import it.unina.uninamulticloud.dao.UtenteDAO;
+import it.unina.uninamulticloud.dao.postgresql.UniversitaDAOImpl;
 import it.unina.uninamulticloud.dao.postgresql.UtenteDAOImpl;
 import it.unina.uninamulticloud.entity.Utente;
 
@@ -11,6 +13,7 @@ public class AutenticazioneControl {
     private LoginBoundary loginView; // Il Controller deve poter parlare con la vista
     private RegistrazioneBoundary registrazioneView;
     private UtenteDAO utenteDAO = new UtenteDAOImpl();
+    private UniversitaDAO universitaDAO = new UniversitaDAOImpl();
 
     public AutenticazioneControl(LoginBoundary view) {
         this.loginView = view;
@@ -56,6 +59,8 @@ public class AutenticazioneControl {
                 registrazioneView.showError("Email già registrata.");
                 return;
             }
+            //imposto l'universtià = Federico II
+            utente.setUniversita(universitaDAO.findById(1));
 
             utenteDAO.saveUtente(utente);
             registrazioneView.showSuccess();

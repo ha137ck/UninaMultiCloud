@@ -10,8 +10,6 @@ public class LoginBoundary {
     //Variabili interfaccia
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
-    @FXML private Button accediButton;
-    @FXML private Hyperlink registratiLink;
     @FXML private Label errorLabel;
 
     private AutenticazioneControl autenticazioneControl = new AutenticazioneControl(this);
