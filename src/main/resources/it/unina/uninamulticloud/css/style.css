@@ -79,8 +79,8 @@
     -fx-background-color: black;
     -fx-border-color: black;
     -fx-border-width: 2px;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 7px;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-font-size: 13px;
@@ -95,5 +95,31 @@
 
 .profile-button:pressed {
     -fx-background-color: black;
+    -fx-border-color: white;
+}
+
+/* ==========================================
+   STILE BOTTONE LOGOUT (In alto a destra)
+   ========================================== */
+.logout-button {
+    -fx-background-color: crimson;
+    -fx-border-color: crimson;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 7px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-padding: 6px 16px;
+}
+
+.logout-button:hover {
+    -fx-background-color: crimson;
+    -fx-text-fill: white;
+}
+
+.logout-button:pressed {
+    -fx-background-color: crimson;
     -fx-border-color: white;
 }

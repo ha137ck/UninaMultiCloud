@@ -4,11 +4,10 @@ import it.unina.uninamulticloud.SceneManager;
 import it.unina.uninamulticloud.control.AutenticazioneControl;
 import it.unina.uninamulticloud.control.ElementoMultimedialeControl;
 import it.unina.uninamulticloud.control.PlaylistControl;
-import it.unina.uninamulticloud.entity.Utente;
 import javafx.fxml.FXML;
 import javafx.scene.layout.FlowPane;
-
-import java.awt.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 public class HomeBoundary {
 
@@ -29,23 +28,22 @@ public class HomeBoundary {
 
     @FXML
     public void initialize() {
-        this.autenticazioneControl = new AutenticazioneControl(this);
-        this.elementoMultimedialeControl = new ElementoMultimedialeControl();
-        this.playlistControl = new PlaylistControl();
 
-        Utente utenteAttivo = autenticazioneControl.getUtenteLoggato();
-        if (utenteAttivo != null) {
-            welcomeLabel.setText("Benvenuto/a " + utenteAttivo.getUsername());
-        }else {
-            System.out.println("Errore: utente non loggato.");
+        this.autenticazioneControl = AutenticazioneControl.getInstance();
+
+        // Controllo se l'utente è loggato, altrimenti reindirizzo alla schermata di login
+        if(autenticazioneControl.getUtenteLoggato() == null) {
+            System.out.println("Accesso negato, reindirizzamento alla schermata di login...");
             SceneManager.getInstance().switchScene("Login.fxml");
+            return;
         }
 
-        //mostraPubblicazioni();
-        //mostraPlaylist();
+        welcomeLabel.setText(autenticazioneControl.getMessaggioBenvenuto());
+
+        //TODO mostraPubblicazioni();
+
+        //TODO mostraPlaylist();
     }
-
-
 
     @FXML
     public void onCaricaElemento() {
@@ -63,8 +61,9 @@ public class HomeBoundary {
     }
 
     @FXML
-    public void onProfilo() {
+    public void onMioProfilo() {
         System.out.println("Apro schermata profilo utente...");
+        SceneManager.getInstance().switchScene("MioProfilo.fxml");
     }
 
     // Questi metodi riceveranno probabilmente l'ID dell'elemento cliccato come parametro

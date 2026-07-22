@@ -2,7 +2,6 @@ package it.unina.uninamulticloud.boundary;
 
 import it.unina.uninamulticloud.SceneManager;
 import it.unina.uninamulticloud.control.AutenticazioneControl;
-import it.unina.uninamulticloud.entity.Universita;
 import it.unina.uninamulticloud.entity.Utente;
 import it.unina.uninamulticloud.entity.enums.Genere;
 import javafx.fxml.FXML;
@@ -24,20 +23,23 @@ public class RegistrazioneBoundary {
     @FXML private DatePicker dataNascitaField;
     @FXML private Label errorLabel;
 
-    //private Universita unina;
     private AutenticazioneControl autenticazioneControl;
 
     @FXML
     public void initialize() {
-        autenticazioneControl = new AutenticazioneControl(this);
+        autenticazioneControl = AutenticazioneControl.getInstance();
+
+        //popolamento del ComboBox con i valori dell'enum Genere
         for (Genere g : Genere.values()) {
             genereField.getItems().add(g.name());
         }
+
     }
 
     @FXML
     public void onRegistrati(){
         if (!validateForm()) {
+            System.out.println("Errore nella validazione del form di registrazione.");
             return;
         }
 
@@ -54,9 +56,15 @@ public class RegistrazioneBoundary {
         Utente nuovoUtente = new Utente(matricola, nome, cognome, username, password, email,
                 dataNascita, dataIscrizione, Genere.valueOf(genere), null);
 
-        autenticazioneControl.registra(nuovoUtente);
-    }
+        String errore = autenticazioneControl.registra(nuovoUtente);
 
+        if (errore == null) {
+            showSuccess();
+            SceneManager.getInstance().switchScene("Login.fxml");
+        } else {
+            showError(errore);
+        }
+    }
 
     @FXML
     public void onAccedi(){
@@ -121,5 +129,3 @@ public class RegistrazioneBoundary {
     }
 
 }
-
-
