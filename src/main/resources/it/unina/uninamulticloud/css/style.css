@@ -83,7 +83,7 @@
     -fx-background-radius: 7px;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-font-size: 13px;
+    -fx-font-size: 16px;
     -fx-cursor: hand;
     -fx-padding: 6px 16px;
 }
@@ -109,7 +109,7 @@
     -fx-background-radius: 7px;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-font-size: 13px;
+    -fx-font-size: 16px;
     -fx-cursor: hand;
     -fx-padding: 6px 16px;
 }
@@ -121,5 +121,31 @@
 
 .logout-button:pressed {
     -fx-background-color: crimson;
+    -fx-border-color: white;
+}
+
+/* ==========================================
+   STILE BOTTONE BACK MINI
+   ========================================== */
+.back-button {
+    -fx-background-color: black;
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 7px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 1px;
+    -fx-cursor: hand;
+    -fx-padding: 1px 1px;
+}
+
+.back-button:hover {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.back-button:pressed {
+    -fx-background-color: black;
     -fx-border-color: white;
 }

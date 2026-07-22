@@ -22,14 +22,12 @@ public class HomeBoundary {
     @FXML private FlowPane pubblicazioniFlowPane;
     @FXML private FlowPane playlistFlowPane;
 
-    private AutenticazioneControl autenticazioneControl;
+    private AutenticazioneControl autenticazioneControl = AutenticazioneControl.getInstance();
     private ElementoMultimedialeControl elementoMultimedialeControl;
     private PlaylistControl playlistControl;
 
     @FXML
     public void initialize() {
-
-        this.autenticazioneControl = AutenticazioneControl.getInstance();
 
         // Controllo se l'utente è loggato, altrimenti reindirizzo alla schermata di login
         if(autenticazioneControl.getUtenteLoggato() == null) {

@@ -17,24 +17,24 @@
     <children>
       <AnchorPane blendMode="SRC_ATOP" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="1159.0">
          <children>
-            <Button fx:id="indietroButton" mnemonicParsing="false" onAction="#onIndietro" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: black;" styleClass="profile-button" stylesheets="@../css/style.css" text="Indietro" textFill="WHITE" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="60.0">
+            <Button fx:id="indietroButton" mnemonicParsing="false" onAction="#onIndietro" prefHeight="45.0" prefWidth="135.0" style="-fx-background-color: black;" styleClass="profile-button" stylesheets="@../css/style.css" text="Indietro" textFill="WHITE" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="60.0">
                <font>
-                  <Font size="16.0" />
+                  <Font size="20.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/WBack.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="logoutButton" layoutX="1109.0" layoutY="-3.0" mnemonicParsing="false" onAction="#onLogout" prefHeight="35.0" prefWidth="111.0" style="-fx-background-color: crimson;" styleClass="logout-button" stylesheets="@../css/style.css" text="Logout" textFill="WHITE" underline="true" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="60.0">
+            <Button fx:id="logoutButton" layoutX="1109.0" layoutY="-3.0" mnemonicParsing="false" onAction="#onLogout" prefHeight="45.0" prefWidth="135.0" style="-fx-background-color: crimson;" styleClass="logout-button" stylesheets="@../css/style.css" text="Logout" textFill="WHITE" underline="true" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="60.0">
                <font>
-                  <Font size="16.0" />
+                  <Font size="20.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/Logout.png" />
                      </image>
@@ -43,7 +43,7 @@
             </Button>
          </children>
       </AnchorPane>
-        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-padding: 30; -fx-spacing: 40;">
+        <VBox alignment="CENTER" pickOnBounds="false" prefHeight="200.0" prefWidth="100.0" style="-fx-padding: 30; -fx-spacing: 40;">
             <children>
                 <Label alignment="CENTER" text="Il mio profilo">
                     <font>
@@ -228,12 +228,12 @@
                         </VBox>
                     </children>
                 </HBox>
-                <Button fx:id="reportButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="35.0" prefWidth="197.0" style="-fx-background-color: black;" styleClass="profile-button" stylesheets="@../css/style.css" text="Visualizza Report" textFill="WHITE">
+                <Button fx:id="reportButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onReport" prefHeight="45.0" prefWidth="239.0" style="-fx-background-color: black;" styleClass="profile-button" stylesheets="@../css/style.css" text="Visualizza Report" textFill="WHITE">
                     <font>
-                        <Font size="16.0" />
+                        <Font size="20.0" />
                     </font>
                <graphic>
-                  <ImageView fitHeight="12.0" fitWidth="12.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/Eye.png" />
                      </image>

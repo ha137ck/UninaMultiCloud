@@ -12,12 +12,7 @@ public class LoginBoundary {
     @FXML private PasswordField passwordField;
     @FXML private Label errorLabel;
 
-    private AutenticazioneControl autenticazioneControl;
-
-    @FXML
-    public void initialize() {
-        autenticazioneControl = AutenticazioneControl.getInstance();
-    }
+    private AutenticazioneControl autenticazioneControl = AutenticazioneControl.getInstance();
 
     @FXML
     public void onAccedi() {

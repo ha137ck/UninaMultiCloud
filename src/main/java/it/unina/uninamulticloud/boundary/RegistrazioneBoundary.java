@@ -23,12 +23,10 @@ public class RegistrazioneBoundary {
     @FXML private DatePicker dataNascitaField;
     @FXML private Label errorLabel;
 
-    private AutenticazioneControl autenticazioneControl;
+    private AutenticazioneControl autenticazioneControl = AutenticazioneControl.getInstance();
 
     @FXML
     public void initialize() {
-        autenticazioneControl = AutenticazioneControl.getInstance();
-
         //popolamento del ComboBox con i valori dell'enum Genere
         for (Genere g : Genere.values()) {
             genereField.getItems().add(g.name());

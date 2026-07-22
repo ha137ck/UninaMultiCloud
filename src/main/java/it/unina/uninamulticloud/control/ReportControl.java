@@ -15,4 +15,16 @@ public class ReportControl {
         AutenticazioneControl.getInstance().logout();
     }
 
+    public int getNumeroPlaylistUtente() {
+        Utente utente = AutenticazioneControl.getInstance().getUtenteLoggato();
+        // int numero = playlistDAO.countByUtente(utente.getMatricola());
+        return 5; // Numero di esempio
+    }
+
+    public int getNumeroPubblicazioniUtente() {
+        Utente utente = AutenticazioneControl.getInstance().getUtenteLoggato();
+        // int numero = pubblicazioneDAO.countByUtente(utente.getMatricola());
+        return 12; // Numero di esempio
+    }
+
 }
