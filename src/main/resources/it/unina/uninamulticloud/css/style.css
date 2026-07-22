@@ -79,8 +79,8 @@
     -fx-background-color: black;
     -fx-border-color: black;
     -fx-border-width: 2px;
-    -fx-border-radius: 6px;
-    -fx-background-radius: 6px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-font-size: 13px;
@@ -89,11 +89,11 @@
 }
 
 .profile-button:hover {
-    -fx-background-color: #2eabff;
-    -fx-text-fill: #2eabff;
+    -fx-background-color: black;
+    -fx-text-fill: white;
 }
 
 .profile-button:pressed {
-    -fx-background-color: #2eabff;
-    -fx-border-color: #2eabff;
+    -fx-background-color: black;
+    -fx-border-color: white;
 }
