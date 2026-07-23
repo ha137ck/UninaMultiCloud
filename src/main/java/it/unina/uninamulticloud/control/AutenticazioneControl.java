@@ -97,13 +97,13 @@ public class AutenticazioneControl {
         String saluto = "Benvenut*";
 
         if (utenteLoggato.getGenere() == null) {
-            saluto = "Benvenut*";
+            saluto = "Benvenuto ricchione, tuo padre ti odia";
         } else if (utenteLoggato.getGenere().name().equals("M")) {
             saluto = "Benvenuto";
         } else if (utenteLoggato.getGenere().name().equals("F")) {
             saluto = "Benvenuta";
         } else {
-            saluto = "Benvenut*";
+            saluto = "Benvenuto ricchione, tuo padre ti odia";
         }
 
         return saluto + " " + utenteLoggato.getNome();
