@@ -14,8 +14,8 @@ public class ReportBoundary {
 
     @FXML
     public void initialize() {
-        numeroPlaylistLabel.setText(String.valueOf(reportControl.getNumeroPlaylistUtente()));
-        numeroPubblicazioniLabel.setText(String.valueOf(reportControl.getNumeroPubblicazioniUtente()));
+        //numeroPlaylistLabel.setText(String.valueOf(reportControl.getNumeroPlaylistUtente()));
+        //numeroPubblicazioniLabel.setText(String.valueOf(reportControl.getNumeroPubblicazioniUtente()));
     }
 
     @FXML
