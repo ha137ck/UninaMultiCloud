@@ -5,3 +5,5 @@ public class Launcher {
         App.main(args);
     }
 }
+//TODO cambiare risoluzione
+//TODO togliere la freccia a sinistra in "mostra report"
