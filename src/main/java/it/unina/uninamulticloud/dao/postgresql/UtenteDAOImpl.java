@@ -89,7 +89,7 @@ public class UtenteDAOImpl implements UtenteDAO {
         // Mappatura Genere
         String genereStr = rs.getString("genere");
         if (genereStr != null) {
-            u.setGenere(Genere.valueOf(genereStr.toUpperCase()));
+            u.setGenere(Genere.valueOf(genereStr));
         }
 
         if (rs.getTimestamp("dataIscrizione") != null) {

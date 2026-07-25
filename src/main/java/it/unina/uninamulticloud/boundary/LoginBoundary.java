@@ -10,19 +10,31 @@ public class LoginBoundary {
     //Variabili interfaccia
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
-    @FXML private Button accediButton;
-    @FXML private Hyperlink registratiLink;
     @FXML private Label errorLabel;
 
-    private AutenticazioneControl autenticazioneControl = new AutenticazioneControl(this);
+    private AutenticazioneControl autenticazioneControl = AutenticazioneControl.getInstance();
 
     @FXML
     public void onAccedi() {
         String email = emailField.getText();
         String password = passwordField.getText();
 
+        // Validazione base
+        if (email.trim().isEmpty() || password.trim().isEmpty()) {
+            showError("Inserisci tutti i campi.");
+            return;
+        }
+
         // logica nel controller
-        autenticazioneControl.login(email, password);
+        String errore = autenticazioneControl.login(email, password);
+
+        if (errore == null) {
+            showSuccess();
+            // passaggio alla schermata successiva
+            SceneManager.getInstance().switchScene("Home.fxml");
+        } else {
+            showError(errore);
+        }
     }
 
     @FXML

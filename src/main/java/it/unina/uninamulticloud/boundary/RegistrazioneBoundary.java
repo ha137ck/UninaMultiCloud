@@ -2,8 +2,6 @@ package it.unina.uninamulticloud.boundary;
 
 import it.unina.uninamulticloud.SceneManager;
 import it.unina.uninamulticloud.control.AutenticazioneControl;
-import it.unina.uninamulticloud.dao.postgresql.UniversitaDAOImpl;
-import it.unina.uninamulticloud.entity.Universita;
 import it.unina.uninamulticloud.entity.Utente;
 import it.unina.uninamulticloud.entity.enums.Genere;
 import javafx.fxml.FXML;
@@ -11,8 +9,6 @@ import javafx.scene.control.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class RegistrazioneBoundary {
 
@@ -25,31 +21,15 @@ public class RegistrazioneBoundary {
     @FXML private TextField matricolaField;
     @FXML private ComboBox<String> genereField;
     @FXML private DatePicker dataNascitaField;
-    @FXML private Button registratiButton;
-    @FXML private Hyperlink accediLink;
     @FXML private Label errorLabel;
-    @FXML private ComboBox<String> universitaField;
 
-    private Universita unina;
-    private AutenticazioneControl autenticazioneControl;
+    private AutenticazioneControl autenticazioneControl = AutenticazioneControl.getInstance();
 
     @FXML
     public void initialize() {
-        autenticazioneControl = new AutenticazioneControl(this);
+        //popolamento del ComboBox con i valori dell'enum Genere
         for (Genere g : Genere.values()) {
             genereField.getItems().add(g.name());
-        }
-
-        //dato statico di test
-//        unina = new Universita("Università degli Studi di Napoli Federico II", "Napoli");
-//        unina.setIdUniversita(1L);
-//        universitaField.getItems().add(unina.getNome());
-
-        //caricamento lista uiversità come elementi del combobox
-        UniversitaDAOImpl universitaDAO = new UniversitaDAOImpl();
-        List<Universita> lista = universitaDAO.findAll();
-        for (Universita u : lista) {
-            universitaField.getItems().add(u.getNome());
         }
 
     }
@@ -57,6 +37,7 @@ public class RegistrazioneBoundary {
     @FXML
     public void onRegistrati(){
         if (!validateForm()) {
+            System.out.println("Errore nella validazione del form di registrazione.");
             return;
         }
 
@@ -69,13 +50,19 @@ public class RegistrazioneBoundary {
         String genere = genereField.getValue();
         LocalDate dataNascita = dataNascitaField.getValue();
         LocalDateTime dataIscrizione = LocalDateTime.now();
-
+        //l'università viene settata in autenticazioneControl
         Utente nuovoUtente = new Utente(matricola, nome, cognome, username, password, email,
-                dataNascita, dataIscrizione, Genere.valueOf(genere), unina);
+                dataNascita, dataIscrizione, Genere.valueOf(genere), null);
 
-        autenticazioneControl.registra(nuovoUtente);
+        String errore = autenticazioneControl.registra(nuovoUtente);
+
+        if (errore == null) {
+            showSuccess();
+            SceneManager.getInstance().switchScene("Login.fxml");
+        } else {
+            showError(errore);
+        }
     }
-
 
     @FXML
     public void onAccedi(){
@@ -115,11 +102,6 @@ public class RegistrazioneBoundary {
             return false;
         }
 
-        if (universitaField.getValue() == null) {
-            showError("Seleziona un'università.");
-            return false;
-        }
-
         return true;
     }
 
@@ -145,5 +127,3 @@ public class RegistrazioneBoundary {
     }
 
 }
-
-
