@@ -5,6 +5,14 @@ import javafx.stage.Stage;
 
 import java.util.HashMap;
 import java.util.Map;
+/* Serve un solo punto da cui cambiare schemata in tutta l'app: se ogni boundary creasse una propria istanza,
+ ognuno avrebbe un riferimento diverso allo Stage, non si capirebbe chi mostra cosa. Per implementare il pattern singleton si
+ usa un costruttore privato e il metodo statico getInstance per restituire l'istanza.
+ Serve inoltre il metodo init(Stage) separato dal costruttore di SceneManager, perché l'istanza di SceneManager viene creata prima
+ senza Stage, in un momento successivo deve essere inizializzato.
+*
+* */
+
 
 public class SceneManager {
 

@@ -71,11 +71,9 @@ public class ElementoMultimedialeControl {
             throw new IllegalStateException("Utente non autenticato.");
         }
 
-        try {
             // 2. Prendi direttamente i percorsi dei file già esistenti nel file system
             String percorsoMediaString = fileMedia.getAbsolutePath().replace("\\", "/");
-            String percorsoCopertinaString = (fileCopertina != null) ?
-                    fileCopertina.getAbsolutePath().replace("\\", "/") : null;
+            String percorsoCopertinaString = (fileCopertina != null) ? fileCopertina.getAbsolutePath().replace("\\", "/") : null;
 
             // 3. Determina se è Audio o Video in base all'estensione
             boolean isAudio = determinaSeAudio(fileMedia.getName());
@@ -92,10 +90,6 @@ public class ElementoMultimedialeControl {
 
 
             elementoMultimedialeDAO.insert(nuovoElemento);
-        }
-        catch (Exception e) {
-            System.out.println("Errore durante il salvataggio: " + e.getMessage());
-        }
     }
 
     private boolean determinaSeAudio(String nomeFile) {
