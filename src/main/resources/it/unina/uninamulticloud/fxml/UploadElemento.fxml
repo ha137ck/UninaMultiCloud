@@ -19,7 +19,7 @@
 
           <HBox alignment="CENTER" spacing="20">
               <VBox alignment="CENTER" spacing="5">
-                  <Button fx:id="btnSelezionaFile" onAction="#onSelezionaFile" style="-fx-background-color: black;" text="Seleziona file" textFill="WHITE">
+                  <Button fx:id="btnSelezionaFile" onAction="#onSelezionaFile" style="-fx-background-color: black;" text="Seleziona file *" textFill="WHITE">
                   <font>
                      <Font size="13.0" />
                   </font></Button>
@@ -46,6 +46,10 @@
             <font>
                <Font size="14.0" />
             </font></Button>
+         <Label fx:id="errorLabel" prefHeight="18.0" prefWidth="201.0" text=" ">
+            <VBox.margin>
+               <Insets top="10.0" />
+            </VBox.margin></Label>
       </VBox>
    </center>
 </BorderPane>
