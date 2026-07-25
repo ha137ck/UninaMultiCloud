@@ -6,7 +6,8 @@ public class Launcher {
     }
 }
 //TODO cambiare risoluzione
-//TODO togliere la freccia a sinistra in "mostra report".
 
-//TODO il genere ALTRO non è collegato bene al database, quindi non è possibile selezionarlo.
-// Bisogna sistemare il database e la classe Genere per permettere la selezione del genere ALTRO.
+
+//TODO rivedere reinserimento di combobox per selezionare l'università
+
+//TODO gestire la selezione dei file con FileChooser
