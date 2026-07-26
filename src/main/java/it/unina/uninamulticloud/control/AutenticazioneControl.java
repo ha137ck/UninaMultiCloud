@@ -5,6 +5,7 @@ import it.unina.uninamulticloud.dao.UtenteDAO;
 import it.unina.uninamulticloud.dao.postgresql.UniversitaDAOImpl;
 import it.unina.uninamulticloud.dao.postgresql.UtenteDAOImpl;
 import it.unina.uninamulticloud.entity.Utente;
+import it.unina.uninamulticloud.util.SessionManager;
 
 public class AutenticazioneControl {
 
@@ -44,6 +45,7 @@ public class AutenticazioneControl {
         if (utenteTrovato != null && utenteTrovato.getPassword().equals(password)) {
 
             utenteLoggato = utenteTrovato;
+            //SessionManager.login(utenteLoggato);//per memorizzare l'utente loggato in sessione
             return null; // Nessun errore
 
         } else {

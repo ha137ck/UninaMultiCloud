@@ -46,6 +46,7 @@ public class HomeBoundary {
     @FXML
     public void onCaricaElemento() {
         System.out.println("Apro schermata caricamento elemento...");
+        SceneManager.getInstance().switchScene("UploadElemento.fxml");
     }
 
     @FXML

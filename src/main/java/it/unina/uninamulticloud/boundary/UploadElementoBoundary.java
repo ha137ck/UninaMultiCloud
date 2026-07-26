@@ -62,19 +62,20 @@ public class UploadElementoBoundary {
         String titolo = txtTitolo.getText();
         String descrizione = txtDescrizione.getText();
 
-        if(titolo.isEmpty() || fileSelezionato == null){
-            showError("Inserisci tutti i campi obbligatori.");
-        }
+        if(titolo.isEmpty() || fileSelezionato == null){ showError("Inserisci tutti i campi obbligatori."); }
 
         try{
             //Passo i dati al controller
             elementoControl.caricaElemento(titolo, descrizione, fileSelezionato, copertinaSelezionata);
 
             //Pulisco i campi
-
+            txtTitolo.clear();
+            txtDescrizione.clear();
+            lblNomeFile.setText("");
+            lblNomeCopertina.setText("");
         }
         catch(Exception e){
-
+            showError("Errore durante il caricamento");
         }
     }
 

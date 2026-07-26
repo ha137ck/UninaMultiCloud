@@ -6,6 +6,7 @@ import it.unina.uninamulticloud.entity.Audio;
 import it.unina.uninamulticloud.entity.ElementoMultimediale;
 import it.unina.uninamulticloud.entity.Utente;
 import it.unina.uninamulticloud.entity.Video;
+import it.unina.uninamulticloud.util.SessionManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -66,7 +67,8 @@ public class ElementoMultimedialeControl {
             throw new IllegalArgumentException("Selezionare un file multimediale valido.");
         }
 
-        Utente utenteLoggato = null; //SessioneUtente.getIstanza().getUtenteLoggato();
+        //Recupera l'utente loggato
+        Utente utenteLoggato = AutenticazioneControl.getInstance().getUtenteLoggato(); //SessionManager.getUtenteLoggato();
         if (utenteLoggato == null) {
             throw new IllegalStateException("Utente non autenticato.");
         }
