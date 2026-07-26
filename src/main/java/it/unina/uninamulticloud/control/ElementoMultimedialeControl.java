@@ -18,6 +18,8 @@ import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ElementoMultimedialeControl {
 
@@ -79,6 +81,7 @@ public class ElementoMultimedialeControl {
 
             // 3. Determina se è Audio o Video in base all'estensione
             boolean isAudio = determinaSeAudio(fileMedia.getName());
+            String formato = estraiEstensione(fileMedia.getName());
             ElementoMultimediale nuovoElemento = isAudio ? new Audio() : new Video();
 
             // 4. Popola l'oggetto Model
@@ -89,13 +92,36 @@ public class ElementoMultimedialeControl {
             nuovoElemento.setFilePath(percorsoMediaString);
             nuovoElemento.setImmagineCopertina(percorsoCopertinaString);
             nuovoElemento.setUtente(utenteLoggato);
+            nuovoElemento.setFormato(formato);
 
+        //TODO Valori didattici di default, in attesa di un calcolo reale dai metadati del file
+            if(nuovoElemento instanceof Audio audio) {
+                audio.setBitRate(320);
+            }
+            if(nuovoElemento instanceof Video video) {
+                video.setRisoluzione("720pp");
+            }
 
+            //5. Salva nel db
             elementoMultimedialeDAO.insert(nuovoElemento);
     }
 
+    private static final HashSet<String> ESTENSIONI_VIDEO = new HashSet<>(Set.of("mp4", "mkv", "mov"));
+    private static final HashSet<String>  ESTENSIONI_AUDIO = new HashSet<>(Set.of("mp3", "wav"));
+
+    private String estraiEstensione(String nomeFile) {
+        if(nomeFile == null ||nomeFile.lastIndexOf(".") == -1)
+            throw new IllegalArgumentException("Nomefile non valido: " + nomeFile);
+       return nomeFile.substring(nomeFile.lastIndexOf(".") + 1).toLowerCase(); //per sicurezza in minuscolo
+    }
+
     private boolean determinaSeAudio(String nomeFile) {
-        String ext = nomeFile.toLowerCase();
-        return ext.endsWith(".mp3") || ext.endsWith(".wav");
+        String estensione = estraiEstensione(nomeFile);
+       if(ESTENSIONI_AUDIO.contains(estensione))
+           return true;
+       else if(ESTENSIONI_VIDEO.contains(estensione))
+           return false;
+       else
+           throw new IllegalArgumentException("Formato del file non valido: " + nomeFile);
     }
 }

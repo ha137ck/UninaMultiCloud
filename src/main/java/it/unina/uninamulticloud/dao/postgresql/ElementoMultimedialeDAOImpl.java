@@ -48,22 +48,22 @@ public class ElementoMultimedialeDAOImpl implements ElementoMultimedialeDAO {
 
             // RISOLUZIONE POLIMORFICA DELLA GERARCHIA
             if (elemento instanceof Audio audio) {
-                statement.setString(8, "audio");
-                statement.setNull(9, Types.VARCHAR);          // risoluzione non presente per audio
-                statement.setInt(10, audio.getBitRate());     // bitRate specifico per audio
+                statement.setString(7, "audio");
+                statement.setNull(8, Types.VARCHAR);          // imposta risoluzione null (non presente per audio)
+                statement.setInt(9, audio.getBitRate());     // bitRate specifico per audio
             } else if (elemento instanceof Video video) {
-                statement.setString(8, "video");
-                statement.setString(9, video.getRisoluzione()); // risoluzione specifica per video
-                statement.setNull(10, Types.INTEGER);          // bitRate non presente per video
+                statement.setString(7, "video");
+                statement.setString(8, video.getRisoluzione()); // risoluzione specifica per video
+                statement.setNull(9, Types.INTEGER);          // bitRate non presente per video
             } else {
                 throw new IllegalArgumentException("Sottoclasse di ElementoMultimediale non supportata.");
             }
 
             // Navigazione verso l'oggetto Utente (Autore) per estrarre la FK matricola
             if (elemento.getAutore() != null) {
-                statement.setString(11, elemento.getAutore().getMatricola());
+                statement.setString(10, elemento.getAutore().getMatricola());
             } else {
-                statement.setNull(11, Types.VARCHAR);
+                statement.setNull(10, Types.VARCHAR);
             }
 
             statement.executeUpdate();

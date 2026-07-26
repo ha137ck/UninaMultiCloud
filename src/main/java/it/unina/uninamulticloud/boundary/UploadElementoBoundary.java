@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.util.Arrays;
 
 public class UploadElementoBoundary {
 
@@ -75,6 +76,7 @@ public class UploadElementoBoundary {
             lblNomeCopertina.setText("");
         }
         catch(Exception e){
+            e.printStackTrace();
             showError("Errore durante il caricamento");
         }
     }
