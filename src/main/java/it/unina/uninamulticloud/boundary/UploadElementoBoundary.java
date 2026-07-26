@@ -1,5 +1,6 @@
 package it.unina.uninamulticloud.boundary;
 
+import it.unina.uninamulticloud.SceneManager;
 import it.unina.uninamulticloud.control.ElementoMultimedialeControl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,9 +32,9 @@ public class UploadElementoBoundary {
         //Prende la lista dei filtri per le estensioni supportate
         fileChooser.getExtensionFilters().addAll(
                 //creo la lista dei filtri
-                new FileChooser.ExtensionFilter("Audio e video", "*.mp3", "*.wav", "*.mp4", "*.mkv"),
+                new FileChooser.ExtensionFilter("Audio e video", "*.mp3", "*.wav", "*.mp4", "*.mkv", "*.mov"),
                 new FileChooser.ExtensionFilter("Audio", "*.mp3" , "*.wav"),
-                new FileChooser.ExtensionFilter("Video", "*.mp4", "*.mkv")
+                new FileChooser.ExtensionFilter("Video", "*.mp4", "*.mkv", "*.mov")
         );
         //Apre la finestra di dialogo e aspetta la scelta dell'utente
         File file = fileChooser.showOpenDialog(txtTitolo.getScene().getWindow());
@@ -74,11 +75,18 @@ public class UploadElementoBoundary {
             txtDescrizione.clear();
             lblNomeFile.setText("");
             lblNomeCopertina.setText("");
+
+            showSuccess();
         }
         catch(Exception e){
             e.printStackTrace();
             showError("Errore durante il caricamento");
         }
+    }
+
+    public void onIndietro() {
+        System.out.println("Torno alla home...");
+        SceneManager.getInstance().switchScene("Home.fxml");
     }
 
     public void showError(String msg) {
@@ -88,6 +96,6 @@ public class UploadElementoBoundary {
 
     public void showSuccess() {
         errorLabel.setStyle("-fx-text-fill: green;");
-        errorLabel.setText("Login effettuato con successo!");
+        errorLabel.setText("Caricamento effettuato con successo!");
     }
 }

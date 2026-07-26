@@ -52,4 +52,7 @@
             </VBox.margin></Label>
       </VBox>
    </center>
+   <top>
+      <Button alignment="TOP_LEFT" mnemonicParsing="false" onMouseClicked="#onIndietro" text="Indietro" BorderPane.alignment="CENTER" />
+   </top>
 </BorderPane>

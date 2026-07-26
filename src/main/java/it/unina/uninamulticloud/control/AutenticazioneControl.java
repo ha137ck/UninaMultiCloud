@@ -45,7 +45,7 @@ public class AutenticazioneControl {
         if (utenteTrovato != null && utenteTrovato.getPassword().equals(password)) {
 
             utenteLoggato = utenteTrovato;
-            //SessionManager.login(utenteLoggato);//per memorizzare l'utente loggato in sessione
+            //TODO SessionManager.login(utenteLoggato);//per memorizzare l'utente loggato in sessione
             return null; // Nessun errore
 
         } else {
