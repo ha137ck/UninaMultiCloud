@@ -95,19 +95,18 @@ public class AutenticazioneControl {
             return "Errore: utente non loggato.";
         }
 
-        String saluto;
+        String saluto = "Benvenut*";
         if (utenteLoggato.getGenere().name().equals("M")) {
-            saluto = "Benvenuto" + utenteLoggato.getNome();
+            saluto = "Benvenuto";
         } else if (utenteLoggato.getGenere().name().equals("F")) {
-            saluto = "Benvenuta" + utenteLoggato.getNome();
-        } else {
-            saluto = "Benvenut*" + utenteLoggato.getNome();
+            saluto = "Benvenuta";
         }
-
         return saluto + " " + utenteLoggato.getNome();
+
     }
 
     public void logout() {
         utenteLoggato = null;
     }
+
 }
