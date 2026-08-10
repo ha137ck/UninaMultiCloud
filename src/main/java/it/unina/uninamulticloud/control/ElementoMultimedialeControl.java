@@ -19,6 +19,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ElementoMultimedialeControl {
@@ -38,7 +39,7 @@ public class ElementoMultimedialeControl {
     private ElementoMultimedialeDAO elementoMultimedialeDAO;
 
     private ElementoMultimedialeControl() {
-       this.elementoMultimedialeDAO = new ElementoMultimedialeDAOImpl();
+        this.elementoMultimedialeDAO = new ElementoMultimedialeDAOImpl();
     }
 
     public static ElementoMultimedialeControl getInstance() {
@@ -49,16 +50,14 @@ public class ElementoMultimedialeControl {
     }
 
 
-
-
-
     /**
      * Gestisce il processo completo di caricamento di un nuovo elemento multimediale.
      * * @param titolo Titolo del brano/video (obbligatorio)
-     * @param descrizione Descrizione opzionale
-     * @param fileMedia File audio/video selezionato da FileSystem
+     *
+     * @param descrizione   Descrizione opzionale
+     * @param fileMedia     File audio/video selezionato da FileSystem
      * @param fileCopertina File immagine copertina (opzionale)
-     * @throws IOException Se si verifica un errore durante la copia dei file
+     * @throws IOException  Se si verifica un errore durante la copia dei file
      * @throws SQLException Se si verifica un errore durante il salvataggio nel DB
      */
     public void caricaElemento(String titolo, String descrizione, File fileMedia, File fileCopertina)
@@ -75,53 +74,57 @@ public class ElementoMultimedialeControl {
             throw new IllegalStateException("Utente non autenticato.");
         }
 
-            // 2. Prendi direttamente i percorsi dei file già esistenti nel file system
-            String percorsoMediaString = fileMedia.getAbsolutePath().replace("\\", "/");
-            String percorsoCopertinaString = (fileCopertina != null) ? fileCopertina.getAbsolutePath().replace("\\", "/") : null;
+        // 2. Prendi direttamente i percorsi dei file già esistenti nel file system
+        String percorsoMediaString = fileMedia.getAbsolutePath().replace("\\", "/");
+        String percorsoCopertinaString = (fileCopertina != null) ? fileCopertina.getAbsolutePath().replace("\\", "/") : null;
 
-            // 3. Determina se è Audio o Video in base all'estensione
-            boolean isAudio = determinaSeAudio(fileMedia.getName());
-            String formato = estraiEstensione(fileMedia.getName());
-            ElementoMultimediale nuovoElemento = isAudio ? new Audio() : new Video();
+        // 3. Determina se è Audio o Video in base all'estensione
+        boolean isAudio = determinaSeAudio(fileMedia.getName());
+        String formato = estraiEstensione(fileMedia.getName());
+        ElementoMultimediale nuovoElemento = isAudio ? new Audio() : new Video();
 
-            // 4. Popola l'oggetto Model
-            nuovoElemento.setTitolo(titolo);
-            nuovoElemento.setDescrizione(descrizione);
-            nuovoElemento.setDurata(Duration.ofSeconds(180)); //TODO GESTIRE LA DURATA (per ora Valore didattico di default)
-            nuovoElemento.setDataCreazione(LocalDateTime.now());
-            nuovoElemento.setFilePath(percorsoMediaString);
-            nuovoElemento.setImmagineCopertina(percorsoCopertinaString);
-            nuovoElemento.setUtente(utenteLoggato);
-            nuovoElemento.setFormato(formato);
+        // 4. Popola l'oggetto Model
+        nuovoElemento.setTitolo(titolo);
+        nuovoElemento.setDescrizione(descrizione);
+        nuovoElemento.setDurata(Duration.ofSeconds(180)); //TODO GESTIRE LA DURATA (per ora Valore didattico di default)
+        nuovoElemento.setDataCreazione(LocalDateTime.now());
+        nuovoElemento.setFilePath(percorsoMediaString);
+        nuovoElemento.setImmagineCopertina(percorsoCopertinaString);
+        nuovoElemento.setUtente(utenteLoggato);
+        nuovoElemento.setFormato(formato);
 
         //TODO Valori didattici di default, in attesa di un calcolo reale dai metadati del file
-            if(nuovoElemento instanceof Audio audio) {
-                audio.setBitRate(320);
-            }
-            if(nuovoElemento instanceof Video video) {
-                video.setRisoluzione("720pp");
-            }
+        if (nuovoElemento instanceof Audio audio) {
+            audio.setBitRate(320);
+        }
+        if (nuovoElemento instanceof Video video) {
+            video.setRisoluzione("720pp");
+        }
 
-            //5. Salva nel db
-            elementoMultimedialeDAO.insert(nuovoElemento);
+        //5. Salva nel db
+        elementoMultimedialeDAO.insert(nuovoElemento);
     }
 
     private static final HashSet<String> ESTENSIONI_VIDEO = new HashSet<>(Set.of("mp4", "mkv", "mov"));
-    private static final HashSet<String>  ESTENSIONI_AUDIO = new HashSet<>(Set.of("mp3", "wav"));
+    private static final HashSet<String> ESTENSIONI_AUDIO = new HashSet<>(Set.of("mp3", "wav"));
 
     private String estraiEstensione(String nomeFile) {
-        if(nomeFile == null ||nomeFile.lastIndexOf(".") == -1)
+        if (nomeFile == null || nomeFile.lastIndexOf(".") == -1)
             throw new IllegalArgumentException("Nomefile non valido: " + nomeFile);
-       return nomeFile.substring(nomeFile.lastIndexOf(".") + 1).toLowerCase(); //per sicurezza in minuscolo
+        return nomeFile.substring(nomeFile.lastIndexOf(".") + 1).toLowerCase(); //per sicurezza in minuscolo
     }
 
     private boolean determinaSeAudio(String nomeFile) {
         String estensione = estraiEstensione(nomeFile);
-       if(ESTENSIONI_AUDIO.contains(estensione))
-           return true;
-       else if(ESTENSIONI_VIDEO.contains(estensione))
-           return false;
-       else
-           throw new IllegalArgumentException("Formato del file non valido: " + nomeFile);
+        if (ESTENSIONI_AUDIO.contains(estensione))
+            return true;
+        else if (ESTENSIONI_VIDEO.contains(estensione))
+            return false;
+        else
+            throw new IllegalArgumentException("Formato del file non valido: " + nomeFile);
+    }
+
+    public List<ElementoMultimediale> mostraPubblicazioni(Utente u) throws SQLException {
+        return elementoMultimedialeDAO.findByAutore(u.getMatricola());
     }
 }
