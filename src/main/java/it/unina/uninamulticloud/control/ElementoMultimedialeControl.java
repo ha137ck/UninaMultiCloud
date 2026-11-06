@@ -124,7 +124,12 @@ public class ElementoMultimedialeControl {
             throw new IllegalArgumentException("Formato del file non valido: " + nomeFile);
     }
 
-    public List<ElementoMultimediale> mostraPubblicazioni(Utente u) throws SQLException {
-        return elementoMultimedialeDAO.findByAutore(u.getMatricola());
+    //metodo per recuperare tutti gli elementi multimediali dell'utente loggato, è chiamato nel metodo inizialize di HomeBoundary
+    public List<ElementoMultimediale> getElementiUtenteLoggato() throws SQLException {
+        Utente utenteLoggato = AutenticazioneControl.getInstance().getUtenteLoggato();
+        if (utenteLoggato == null) {
+            throw new IllegalStateException("Utente non autenticato.");
+        }
+        return elementoMultimedialeDAO.findByAutore(utenteLoggato.getMatricola());
     }
 }
