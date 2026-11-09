@@ -10,18 +10,23 @@ import java.sql.*;
 
 public class UtenteDAOImpl implements UtenteDAO {
 
+    //è l'unica ricerca implementata degli utenti è fatta per email
     @Override
     public Utente findByEmail(String email) {
-        String sql = "SELECT * FROM Utente WHERE email = ?";
-        try (PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement(sql)) {
+        //recupero anche i dati dell'università con una join su Università
+        //Alias per uni_nome per distinguerlo dal nome dell'utente
+        String sql = "SELECT ut.*, uni.nome AS uni_nome, uni.citta AS uni_citta" +
+                " FROM Utente ut JOIN Universita uni ON ut.idUniversita = uni.idUniversita WHERE ut.email = ?";
+        //Richiesta di connessione
+        Connection conn = DBConnection.getInstance().getConnection();
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, email);
             try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return mapResultSetToUtente(rs);
-                }
+                if (rs.next()) {return mapResultSetToUtente(rs);}
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Errore nella ricerca dell'utente", e);
+            throw new RuntimeException("Errore nella ricerca dell'utente", e); //è il modo corretto di gestire le eccezioni?
         }
         return null;
     }
@@ -46,8 +51,9 @@ public class UtenteDAOImpl implements UtenteDAO {
         String query = "INSERT INTO Utente (matricola, nome, cognome, username, email, password, dataNascita, genere, dataIscrizione, idUniversita) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?::TIPO_GENERE_UTENTE, ?, ?)";
 
-        try (Connection conn = DBConnection.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+        //Richiesta di connessione (fuori dal try with resources)
+        Connection conn = DBConnection.getInstance().getConnection();
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setString(1, utente.getMatricola());
             pstmt.setString(2, utente.getNome());
@@ -62,15 +68,21 @@ public class UtenteDAOImpl implements UtenteDAO {
             pstmt.setTimestamp(9, Timestamp.valueOf(utente.getDataIscrizione()));
 
             // Estrae l'ID dall'oggetto Università collegato
-            pstmt.setLong(10, utente.getUniversita().getIdUniversita());
+            pstmt.setLong(10, utente.getUniversita().getIdUniversita()); //se volessi togliere da java gli id e lasciarli solo nel db, come dovrei fare a collegare l'utente all'università?
 
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
-            System.err.println("Errore durante il salvataggio dell'utente: " + e.getMessage());
+            throw new RuntimeException("Errore durante l'inserimento dell'utente", e);
         }
     }
 
+    /**
+     * Lettura dei dati dal ResultSet e creazione dell'oggetto Utente
+     * @param rs
+     * @return L'oggetto Utente inizializzato con i dati del ResultSet
+     * @throws SQLException
+     */
     private Utente mapResultSetToUtente(ResultSet rs) throws SQLException {
         Utente u = new Utente();
         u.setMatricola(rs.getString("matricola"));
@@ -78,8 +90,6 @@ public class UtenteDAOImpl implements UtenteDAO {
         u.setCognome(rs.getString("cognome"));
         u.setUsername(rs.getString("username"));
         u.setEmail(rs.getString("email"));
-
-        // La password va letta, altrimenti il login (che fa un .equals sulla password) fallisce
         u.setPassword(rs.getString("password"));
 
         if (rs.getDate("dataNascita") != null) {
@@ -95,26 +105,33 @@ public class UtenteDAOImpl implements UtenteDAO {
         if (rs.getTimestamp("dataIscrizione") != null) {
             u.setDataIscrizione(rs.getTimestamp("dataIscrizione").toLocalDateTime());
         }
-
-        // Istanzio un'Università vuota e le assegno l'ID e nome e citta vuoti per evitare NullPointerException tanto non ci serve per il login
-        Universita uni = new Universita(null, null);
-        uni.setIdUniversita(rs.getLong("idUniversita"));
+        //Creo l'oggetto Universita
+        Universita uni = new Universita(rs.getString("uni_nome"), rs.getString("uni_citta"), rs.getLong("idUniversita"));
+        //Collego l'università all'utente
         u.setUniversita(uni);
 
         return u;
     }
 
+    /**
+     * Fattorizza il codice per le query che controllano la presenza di un elemento nel database
+     * @param query la query da eseguire
+     * @param param il campo su cui effettuare la ricerca
+     * @return true se esiste, false altrimenti
+     */
     private boolean checkExists(String query, String param) {
-        try (Connection conn = DBConnection.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+        // richiesta di connessione
+        Connection conn = DBConnection.getInstance().getConnection();
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setString(1, param);
+
             try (ResultSet rs = pstmt.executeQuery()) {
-                return rs.next(); // Se rs.next() è true, vuol dire che ha trovato un match
+                // Se rs.next() è true, vuol dire che la query ha trovato almeno un risultato
+                return rs.next();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+           throw new RuntimeException("Errore nella ricerca dell'utente", e);
         }
     }
 }

@@ -45,7 +45,6 @@ public class AutenticazioneControl {
         if (utenteTrovato != null && utenteTrovato.getPassword().equals(password)) {
 
             utenteLoggato = utenteTrovato;
-            //TODO SessionManager.login(utenteLoggato);//per memorizzare l'utente loggato in sessione
             return null; // Nessun errore
 
         } else {
@@ -97,21 +96,17 @@ public class AutenticazioneControl {
         }
 
         String saluto = "Benvenut*";
-
-        if (utenteLoggato.getGenere() == null) {
-            saluto = "Benvenuto ricchione, tuo padre ti odia";
-        } else if (utenteLoggato.getGenere().name().equals("M")) {
+        if (utenteLoggato.getGenere().name().equals("M")) {
             saluto = "Benvenuto";
         } else if (utenteLoggato.getGenere().name().equals("F")) {
             saluto = "Benvenuta";
-        } else {
-            saluto = "Benvenuto ricchione, tuo padre ti odia";
         }
-
         return saluto + " " + utenteLoggato.getNome();
+
     }
 
     public void logout() {
         utenteLoggato = null;
     }
+
 }

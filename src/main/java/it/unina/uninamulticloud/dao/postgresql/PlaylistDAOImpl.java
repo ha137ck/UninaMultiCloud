@@ -36,9 +36,8 @@ public class PlaylistDAOImpl implements PlaylistDAO {
     public List<Playlist> findByProprietario(String matricola) {
         List<Playlist> lista = new ArrayList<>();
         String query = "SELECT * FROM Playlist WHERE matricola = ? ORDER BY dataPubblicazione DESC";
-
-        try (Connection conn = DBConnection.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+        Connection conn = DBConnection.getInstance().getConnection();
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setString(1, matricola);
 
@@ -57,9 +56,8 @@ public class PlaylistDAOImpl implements PlaylistDAO {
     public void save(Playlist playlist, String matricolaProprietario) {
         String query = "INSERT INTO Playlist (titolo, dataPubblicazione, descrizione, tipo, matricola) " +
                 "VALUES (?, ?, ?, ?::TIPO_PLAYLIST, ?)";
-
-        try (Connection conn = DBConnection.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+        Connection conn = DBConnection.getInstance().getConnection();
+        try (PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setString(1, playlist.getTitolo());
             pstmt.setTimestamp(2, Timestamp.valueOf(playlist.getDataPubblicazione()));
@@ -93,8 +91,8 @@ public class PlaylistDAOImpl implements PlaylistDAO {
     @Override
     public void delete(int idPlaylist) {
         String query = "DELETE FROM Playlist WHERE idPlaylist = ?";
-        try (Connection conn = DBConnection.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+        Connection conn = DBConnection.getInstance().getConnection();
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, idPlaylist);
             pstmt.executeUpdate();

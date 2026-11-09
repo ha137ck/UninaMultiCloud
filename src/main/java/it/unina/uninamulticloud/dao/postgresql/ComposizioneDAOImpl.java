@@ -16,9 +16,9 @@ public class ComposizioneDAOImpl implements ComposizioneDAO {
     public void save(int idPlaylist, long idElementoMultimediale) {
         String queryMax = "SELECT COALESCE(MAX(posizione), 0) FROM Composizione WHERE idPlaylist = ?";
         String queryInsert = "INSERT INTO Composizione (posizione, idPlaylist, idElementoMultimediale) VALUES (?, ?, ?)";
-
-        try (Connection conn = DBConnection.getInstance().getConnection();
-             PreparedStatement pstmtMax = conn.prepareStatement(queryMax);
+        //Richiesta di connesione
+        Connection conn = DBConnection.getInstance().getConnection();
+        try (PreparedStatement pstmtMax = conn.prepareStatement(queryMax);
              PreparedStatement pstmtInsert = conn.prepareStatement(queryInsert)) {
 
             // 1. Troviamo l'attuale posizione massima per quella playlist
@@ -45,8 +45,9 @@ public class ComposizioneDAOImpl implements ComposizioneDAO {
     public void delete(int idPlaylist, int posizione) {
         String queryDelete = "DELETE FROM Composizione WHERE idPlaylist = ? AND posizione = ?";
         String queryCompatta = "UPDATE Composizione SET posizione = posizione - 1 WHERE idPlaylist = ? AND posizione > ?";
-
-        try (Connection conn = DBConnection.getInstance().getConnection()) {
+        //Richiesta di connesione
+        Connection conn = DBConnection.getInstance().getConnection();
+        try {
             // È buona prassi usare una transazione per operazioni concatenate
             conn.setAutoCommit(false);
 
@@ -81,9 +82,11 @@ public class ComposizioneDAOImpl implements ComposizioneDAO {
         String query1 = "UPDATE Composizione SET posizione = -1 WHERE idPlaylist = ? AND posizione = ?";
         String query2 = "UPDATE Composizione SET posizione = ? WHERE idPlaylist = ? AND posizione = ?";
         String query3 = "UPDATE Composizione SET posizione = ? WHERE idPlaylist = ? AND posizione = -1";
-
-        try (Connection conn = DBConnection.getInstance().getConnection()) {
-            conn.setAutoCommit(false); // Inizio transazione
+        //Richiesta di connesione
+        Connection conn = DBConnection.getInstance().getConnection();
+        try {
+            //Inizio transazione
+            conn.setAutoCommit(false);
 
             try (PreparedStatement pstmt1 = conn.prepareStatement(query1);
                  PreparedStatement pstmt2 = conn.prepareStatement(query2);
@@ -121,9 +124,9 @@ public class ComposizioneDAOImpl implements ComposizioneDAO {
     public List<Composizione> findByPlaylist(int idPlaylist) {
         List<Composizione> elementi = new ArrayList<>();
         String query = "SELECT * FROM Composizione WHERE idPlaylist = ? ORDER BY posizione ASC";
-
-        try (Connection conn = DBConnection.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+        //Richiesta di connesione
+        Connection conn = DBConnection.getInstance().getConnection();
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, idPlaylist);
 

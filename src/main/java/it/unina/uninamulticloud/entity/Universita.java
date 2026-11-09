@@ -5,9 +5,12 @@ public class Universita {
     private String nome;
     private String citta;
 
-    public Universita(String nome, String citta) {
+    public Universita() {}
+
+    public Universita(String nome, String citta, long idUniversita) {
         this.nome = nome;
         this.citta = citta;
+        this.idUniversita = idUniversita;
     }
 
     public String getNome() {

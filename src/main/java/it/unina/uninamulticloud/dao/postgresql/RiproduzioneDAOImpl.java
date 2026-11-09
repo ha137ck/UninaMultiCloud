@@ -18,7 +18,7 @@ public class RiproduzioneDAOImpl implements RiproduzioneDAO {
     public void insert(Riproduzione riproduzione) throws SQLException {
         String sql = "INSERT INTO Riproduzione (dataOrario, matricola, idElementoMultimediale) VALUES (?, ?, ?)";
 
-        Connection connection = DBConnection.getConnection();
+        Connection connection = DBConnection.getInstance().getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setTimestamp(1, Timestamp.valueOf(riproduzione.getDataOrario()));
@@ -41,7 +41,7 @@ public class RiproduzioneDAOImpl implements RiproduzioneDAO {
                 "ORDER BY r.dataOrario DESC";
 
         List<Riproduzione> riproduzioni = new ArrayList<>();
-        Connection connection = DBConnection.getConnection();
+        Connection connection = DBConnection.getInstance().getConnection();
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, matricola);
@@ -82,7 +82,7 @@ public class RiproduzioneDAOImpl implements RiproduzioneDAO {
     public int countByElemento(long idElementoMultimediale) throws SQLException {
         String sql = "SELECT COUNT(*) AS totale FROM Riproduzione WHERE idElementoMultimediale = ?";
 
-        Connection connection = DBConnection.getConnection();
+        Connection connection = DBConnection.getInstance().getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setLong(1, idElementoMultimediale);
 

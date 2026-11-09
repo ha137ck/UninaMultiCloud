@@ -25,8 +25,8 @@ public class ElementoMultimedialeDAOImpl implements ElementoMultimedialeDAO {
         String sql = "INSERT INTO ElementoMultimediale (titolo, durata, descrizione, " +
                 "immagineCopertina, formato, filePath, tipo, risoluzione, bitRate, matricola) " +
                 "VALUES (?, ?::interval, ?, ?, ?, ?, ?::TIPO_ELEMENTO_MULTIMEDIALE, ?, ?, ?)";
-
-        Connection connection = DBConnection.getConnection();
+        //richiesta di connessione (fuori dal try with resources)
+        Connection connection = DBConnection.getInstance().getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
 
             statement.setString(1, elemento.getTitolo());
@@ -77,7 +77,7 @@ public class ElementoMultimedialeDAOImpl implements ElementoMultimedialeDAO {
                 "LEFT JOIN Utente u ON e.matricola = u.matricola " +
                 "WHERE e.idElementoMultimediale = ?";
 
-        Connection connection = DBConnection.getConnection();
+        Connection connection = DBConnection.getInstance().getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setLong(1, idElementoMultimediale);
 
@@ -199,7 +199,7 @@ public class ElementoMultimedialeDAOImpl implements ElementoMultimedialeDAO {
      */
     private List<ElementoMultimediale> executeQueryList(String sql, ParameterBinder binder) throws SQLException {
         List<ElementoMultimediale> lista = new ArrayList<>();
-        Connection connection = DBConnection.getConnection();
+        Connection connection = DBConnection.getInstance().getConnection();
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             if (binder != null) {
