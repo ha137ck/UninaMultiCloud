@@ -6,13 +6,11 @@ import java.time.LocalDateTime;
 
 public class Amicizia {
     private LocalDateTime dataRichiesta;
-    private StatoRichiesta stato;
     private Utente richiedente;
     private Utente amico;
 
-    public Amicizia(LocalDateTime dataRichiesta, StatoRichiesta stato, Utente richiedente, Utente amico) {
+    public Amicizia(LocalDateTime dataRichiesta, Utente richiedente, Utente amico) {
         this.dataRichiesta = dataRichiesta;
-        this.stato = stato;
         this.richiedente = richiedente;
         this.amico = amico;
     }
@@ -23,14 +21,6 @@ public class Amicizia {
 
     public void setDataRichiesta(LocalDateTime dataRichiesta) {
         this.dataRichiesta = dataRichiesta;
-    }
-
-    public StatoRichiesta getStato() {
-        return stato;
-    }
-
-    public void setStato(StatoRichiesta stato) {
-        this.stato = stato;
     }
 
     public Utente getRichiedente() {
