@@ -18,9 +18,8 @@ public class ModificaDAOImpl implements ModificaDAO {
     public void save(Modifica modifica) {
         String query = "INSERT INTO Modifica (dataModifica, azioneEseguita, matricola, idElementoMultimediale, idPlaylist) " +
                 "VALUES (?, ?::TIPO_AZIONE, ?, ?, ?)";
-
-        try (Connection conn = DBConnection.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+        Connection conn = DBConnection.getInstance().getConnection();
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setTimestamp(1, Timestamp.valueOf(modifica.getData()));
             pstmt.setString(2, modifica.getAzioneEseguita()); // Deve essere "INSERIMENTO", "ELIMINAZIONE" o "SPOSTAMENTO"
@@ -41,9 +40,9 @@ public class ModificaDAOImpl implements ModificaDAO {
         List<Modifica> storico = new ArrayList<>();
         // Ordiniamo in modo decrescente (dalla più recente alla meno recente)
         String query = "SELECT * FROM Modifica WHERE idPlaylist = ? ORDER BY dataModifica DESC";
-
-        try (Connection conn = DBConnection.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+        //Richiesta di connessione
+        Connection conn = DBConnection.getInstance().getConnection();
+        try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, idPlaylist);
 
