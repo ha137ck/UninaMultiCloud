@@ -16,7 +16,7 @@ public class UtenteDAOImpl implements UtenteDAO {
         //recupero anche i dati dell'università con una join su Università
         //Alias per uni_nome per distinguerlo dal nome dell'utente
         String sql = "SELECT ut.*, uni.nome AS uni_nome, uni.citta AS uni_citta" +
-                " FROM Utente ut JOIN Universita uni ON ut.idUniversita = uni.idUniversita WHERE u.email = ?";
+                " FROM Utente ut JOIN Universita uni ON ut.idUniversita = uni.idUniversita WHERE ut.email = ?";
         //Richiesta di connessione
         Connection conn = DBConnection.getInstance().getConnection();
 
