@@ -1,11 +1,12 @@
 package it.unina.uninamulticloud.entity;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class PlaylistPubblica extends Playlist{
 
-    public PlaylistPubblica (int idPlaylist, String titolo, LocalDateTime dataPubblicazione, String descrizione) {
-        super(idPlaylist, titolo, dataPubblicazione, descrizione);
+    public PlaylistPubblica (long idPlaylist, String titolo, LocalDateTime dataPubblicazione, String descrizione, Duration durata) {
+        super(idPlaylist, titolo, dataPubblicazione, descrizione, durata);
     }
 
 }

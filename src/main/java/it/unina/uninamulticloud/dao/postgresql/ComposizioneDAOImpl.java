@@ -149,7 +149,7 @@ public class ComposizioneDAOImpl implements ComposizioneDAO {
         int posizione = rs.getInt("posizione");
 
         // Mock object per la Playlist (solo ID)
-        Playlist playlist = new Playlist(rs.getInt("idPlaylist"), null, null, null) {};
+        Playlist playlist = new Playlist(rs.getInt("idPlaylist"), null, null, null, null) {};
 
         // Mock object per l'ElementoMultimediale (solo ID)
         ElementoMultimediale elemento = new ElementoMultimediale() {

@@ -1,11 +1,12 @@
 package it.unina.uninamulticloud.entity;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class PlaylistCondivisa extends Playlist{
 
-    public PlaylistCondivisa (int idPlaylist, String titolo, LocalDateTime dataPubblicazione, String descrizione) {
-        super(idPlaylist, titolo, dataPubblicazione, descrizione);
+    public PlaylistCondivisa (long idPlaylist, String titolo, LocalDateTime dataPubblicazione, String descrizione, Duration durata) {
+        super(idPlaylist, titolo, dataPubblicazione, descrizione, durata);
     }
 
 }

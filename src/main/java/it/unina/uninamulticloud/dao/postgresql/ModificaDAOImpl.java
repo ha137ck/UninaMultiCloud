@@ -26,7 +26,7 @@ public class ModificaDAOImpl implements ModificaDAO {
 
             pstmt.setString(3, modifica.getAutoreModifica().getMatricola());
             pstmt.setLong(4, modifica.getElementoCoinvolto().getIdElementoMultimediale());
-            pstmt.setInt(5, modifica.getPlaylistModificata().getIdPlaylist());
+            pstmt.setLong(5, modifica.getPlaylistModificata().getIdPlaylist());
 
             pstmt.executeUpdate();
 
@@ -87,7 +87,7 @@ public class ModificaDAOImpl implements ModificaDAO {
         // Creazione fittizia della Playlist (solo ID)
         PlaylistCondivisa playlist = new PlaylistCondivisa(
                 rs.getInt("idPlaylist"),
-                null, null, null
+                null, null, null, null
         );
 
         return new Modifica(dataModifica, azione, autore, elemento, playlist);

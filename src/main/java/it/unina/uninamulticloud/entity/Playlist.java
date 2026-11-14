@@ -1,25 +1,28 @@
 package it.unina.uninamulticloud.entity;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 public abstract class Playlist {
-    private int idPlaylist;
+    private long idPlaylist;
     private String titolo;
     private LocalDateTime dataPubblicazione;
     private String descrizione;
+    private Duration durata;
 
-    public Playlist(int idPlaylist, String titolo, LocalDateTime dataPubblicazione, String descrizione) {
+    public Playlist(long idPlaylist, String titolo, LocalDateTime dataPubblicazione, String descrizione, Duration durata) {
         this.idPlaylist = idPlaylist;
         this.titolo = titolo;
         this.dataPubblicazione = dataPubblicazione;
         this.descrizione = descrizione;
+        this.durata = durata;
     }
 
-    public int getIdPlaylist() {
+    public long getIdPlaylist() {
         return idPlaylist;
     }
 
-    public void setIdPlaylist(int idPlaylist) {
+    public void setIdPlaylist(long idPlaylist) {
         this.idPlaylist = idPlaylist;
     }
 
@@ -47,4 +50,11 @@ public abstract class Playlist {
         this.descrizione = descrizione;
     }
 
+    public Duration getDurata() {
+        return durata;
+    }
+
+    public void setDurata(Duration durata) {
+        this.durata = durata;
+    }
 }

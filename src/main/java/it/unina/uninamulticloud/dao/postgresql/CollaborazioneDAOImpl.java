@@ -22,7 +22,7 @@ public class CollaborazioneDAOImpl implements CollaborazioneDAO {
 
             // Estraiamo gli ID dagli oggetti associati
             pstmt.setString(1, collaborazione.getCollaboratore().getMatricola());
-            pstmt.setInt(2, collaborazione.getPlaylistCondivisa().getIdPlaylist());
+            pstmt.setLong(2, collaborazione.getPlaylistCondivisa().getIdPlaylist());
             pstmt.setTimestamp(3, Timestamp.valueOf(collaborazione.getDataInvito()));
 
             pstmt.executeUpdate();
@@ -110,7 +110,8 @@ public class CollaborazioneDAOImpl implements CollaborazioneDAO {
                 rs.getInt("idPlaylist"),
                 null, // titolo fittizio
                 null, // dataPubblicazione fittizia
-                null  // descrizione fittizia
+                null,  // descrizione fittizia
+                null
         );
 
         // Questo set richiede che la tua PlaylistCondivisa abbia un setIdPlaylist
