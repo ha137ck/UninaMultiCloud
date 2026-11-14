@@ -7,12 +7,11 @@ import it.unina.uninamulticloud.entity.Utente;
 import it.unina.uninamulticloud.entity.Video;
 import it.unina.uninamulticloud.util.DBConnection;
 
-import javax.xml.datatype.Duration;
+import java.time.Duration;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +27,9 @@ public class ElementoMultimedialeDAOImpl implements ElementoMultimedialeDAO {
         //richiesta di connessione (fuori dal try with resources)
         Connection connection = DBConnection.getInstance().getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-
             statement.setString(1, elemento.getTitolo());
-            // Il formato INTERVAL di PostgreSQL accetta stringhe standard nel formato "HH:MM:SS"
-            // Duration.toString() restituisce una stringa nel formato "PT1H2M3S" accettato da postgresql
+            /*NOTA: Il formato INTERVAL di PostgreSQL accetta stringhe standard nel formato "HH:MM:SS"
+             Duration.toString() restituisce una stringa nel formato "PT1H2M3S" accettato da postgresql */
             statement.setString(2, elemento.getDurata().toString());
             statement.setString(3, elemento.getDescrizione());
 
@@ -47,6 +45,8 @@ public class ElementoMultimedialeDAOImpl implements ElementoMultimedialeDAO {
             statement.setString(6, elemento.getFilePath());
 
             // RISOLUZIONE POLIMORFICA DELLA GERARCHIA
+            //con una sola riga dell'if si controlla se l'oggetto è di tipo Audio o Video, si effettua un cast, si crea una variabile locale
+            //si chiama pattern matching
             if (elemento instanceof Audio audio) {
                 statement.setString(7, "audio");
                 statement.setNull(8, Types.VARCHAR);          // imposta risoluzione null (non presente per audio)
@@ -65,17 +65,19 @@ public class ElementoMultimedialeDAOImpl implements ElementoMultimedialeDAO {
             } else {
                 statement.setNull(10, Types.VARCHAR);
             }
-
             statement.executeUpdate();
         }
+        //devo aggiungere un catch per SQLException?
     }
 
     @Override
     public ElementoMultimediale findById(long idElementoMultimediale) throws SQLException {
-        String sql = "SELECT e.*, u.username, u.nome, u.cognome " +
+        String sql = "SELECT e.*, EXTRACT(EPOCH FROM e.durata) AS durata_sec, u.username, u.nome, u.cognome " +
                 "FROM ElementoMultimediale e " +
                 "LEFT JOIN Utente u ON e.matricola = u.matricola " +
                 "WHERE e.idElementoMultimediale = ?";
+
+        //EXTRACT(EPOCH FROM e.durata) AS durata_sec  serve per convertire il tipo interval di postgres in secondi (gestibili in java come long)
 
         Connection connection = DBConnection.getInstance().getConnection();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -87,12 +89,13 @@ public class ElementoMultimedialeDAOImpl implements ElementoMultimedialeDAO {
                 }
             }
         }
+        //devo aggiungere un catch per SQLException?
         return null;
     }
 
     @Override
     public List<ElementoMultimediale> findAll() throws SQLException {
-        String sql = "SELECT e.*, u.username, u.nome, u.cognome " +
+        String sql = "SELECT e.*, EXTRACT(EPOCH FROM e.durata) AS durata_sec, u.username, u.nome, u.cognome " +
                 "FROM ElementoMultimediale e " +
                 "LEFT JOIN Utente u ON e.matricola = u.matricola " +
                 "ORDER BY e.dataCreazione DESC";
@@ -100,10 +103,11 @@ public class ElementoMultimedialeDAOImpl implements ElementoMultimedialeDAO {
         return executeQueryList(sql, null);
     }
 
+    //come funziona il parametro matricolaOrUsername? è un singolo parametro che uso nella select due volte?
     @Override
     public List<ElementoMultimediale> findByAutore(String matricolaOrUsername) throws SQLException {
         // Consente la ricerca flessibile richiesta combinando matricola o username dell'utente
-        String sql = "SELECT e.*, u.username, u.nome, u.cognome " +
+        String sql = "SELECT e.*, EXTRACT(EPOCH FROM e.durata) AS durata_sec, u.username, u.nome, u.cognome " +
                 "FROM ElementoMultimediale e " +
                 "JOIN Utente u ON e.matricola = u.matricola " +
                 "WHERE u.matricola = ? OR u.username = ? " +
@@ -118,14 +122,14 @@ public class ElementoMultimedialeDAOImpl implements ElementoMultimedialeDAO {
     @Override
     public List<ElementoMultimediale> findByTipologiaPlaylist(String tipoPlaylist) throws SQLException {
         // Estrae gli elementi associati a playlist di una determinata tipologia tramite doppia JOIN
-        String sql = "SELECT DISTINCT e.*, u.username, u.nome, u.cognome " +
+        String sql = "SELECT DISTINCT e.*, EXTRACT(EPOCH FROM e.durata) AS durata_sec, u.username, u.nome, u.cognome " +
                 "FROM ElementoMultimediale e " +
                 "JOIN Composizione c ON e.idElementoMultimediale = c.idElementoMultimediale " +
                 "JOIN Playlist p ON c.idPlaylist = p.idPlaylist " +
                 "LEFT JOIN Utente u ON e.matricola = u.matricola " +
                 "WHERE p.tipo = ?::TIPO_PLAYLIST " +
                 "ORDER BY e.idElementoMultimediale DESC";
-
+        //è necessario usare una lambda?
         return executeQueryList(sql, statement ->
                 statement.setString(1, tipoPlaylist.toLowerCase())
         );
@@ -136,10 +140,11 @@ public class ElementoMultimedialeDAOImpl implements ElementoMultimedialeDAO {
 
 
     /**
-     * metodo per mappare una riga del ResultSet nell'apposita istanza concettuale.
+     * Metodo per mappare una riga del ResultSet nell'apposita classe Audio o Video.
      * Risolve a runtime l'istanza corretta (Audio o Video) basandosi sul discriminante del database.
      */
     private ElementoMultimediale mapRow(ResultSet resultSet) throws SQLException {
+        //prendo il tipo per distinguere tra Audio e Video
         String tipo = resultSet.getString("tipo");
         ElementoMultimediale e;
 
@@ -147,21 +152,23 @@ public class ElementoMultimedialeDAOImpl implements ElementoMultimedialeDAO {
         if ("audio".equalsIgnoreCase(tipo)) {
             Audio audio = new Audio();
             audio.setBitRate(resultSet.getInt("bitRate"));
+            //perché assegno l'istanza di Audio an una variabile di tipo ElementoMultimediale?
             e = audio;
         } else if ("video".equalsIgnoreCase(tipo)) {
             Video video = new Video();
             video.setRisoluzione(resultSet.getString("risoluzione"));
             e = video;
         } else {
-            throw new SQLException("Rilevato un tipo non riconosciuto per l'elemento multimediale: " + tipo);
+            throw new SQLException("Rilevato un tipo non valido per l'elemento multimediale: " + tipo);
         }
 
-        // Popolamento dei campi comuni ereditati dalla classe base astratta
+        // Popolamento dei campi comuni ereditati dalla classe astratta ElementoMultimediale:
         e.setIdElementoMultimediale(resultSet.getLong("idElementoMultimediale"));
         e.setTitolo(resultSet.getString("titolo"));
 
-        //come gestire duration?
-        //e.setDurata(resultSet.getString("durata") ); // Ottenuto convertendo l'intervallo Postgres in Stringa
+
+        //l'oggetto Duration è ottenuto un long che rappresenta i secondi
+        e.setDurata(Duration.ofSeconds(resultSet.getLong("durata_sec")));
         e.setDescrizione(resultSet.getString("descrizione"));
 
         if (resultSet.getTimestamp("dataCreazione") != null) {
@@ -173,6 +180,7 @@ public class ElementoMultimedialeDAOImpl implements ElementoMultimedialeDAO {
         e.setFilePath(resultSet.getString("filePath"));
 
         // Ricostruzione dell'associazione ad Oggetti (Shallow loading dell'autore dell'elemento)
+        //è possibile perché dalle select recupero con una join sulla tabella Utente i dati dell'utente "autore"
         String matricola = resultSet.getString("matricola");
         if (matricola != null) {
             Utente utente = new Utente();
@@ -180,15 +188,15 @@ public class ElementoMultimedialeDAOImpl implements ElementoMultimedialeDAO {
             utente.setUsername(resultSet.getString("username"));
             utente.setNome(resultSet.getString("nome"));
             utente.setCognome(resultSet.getString("cognome"));
-            e.setUtente(utente);
+            e.setAutore(utente); //Collego l'elemento all'utente proprietario
         }
-
         return e;
     }
 
     /**
-     * Interfaccia funzionale adibita al binding dei parametri sulle query custom.
+     * Interfaccia funzionale adibita al binding dei parametri sulle query personalizzate.
      */
+    //è un contenitore per poter passare come parametro un blocco di codice, in cui vengono impostati i parametri delle SELECT
     @FunctionalInterface
     private interface ParameterBinder {
         void bind(PreparedStatement statement) throws SQLException;
@@ -197,20 +205,26 @@ public class ElementoMultimedialeDAOImpl implements ElementoMultimedialeDAO {
     /**
      * Esegue una query strutturata riducendo la duplicazione del codice di gestione delle risorse JDBC.
      */
+    //come funziona la lambda? come si usa il parametro binder?
     private List<ElementoMultimediale> executeQueryList(String sql, ParameterBinder binder) throws SQLException {
         List<ElementoMultimediale> lista = new ArrayList<>();
+        //Richiesta di connessione
         Connection connection = DBConnection.getInstance().getConnection();
-
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             if (binder != null) {
-                binder.bind(statement);
+                binder.bind(statement);//cosa vuol dire?
             }
+            // Esecuzione della query
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    lista.add(mapRow(resultSet));
+                    //Creo un nuovo elemento multimediale e lo popolo con i dati del ResultSet
+                    //Aggiungo l'elemento multimediale alla lista
+                    lista.add(mapRow(resultSet)); //resulSet è una solo riga? o è tutta una tabella?
                 }
             }
         }
+        //devo aggiungere un catch per SQLException?
+
         return lista;
     }
 }

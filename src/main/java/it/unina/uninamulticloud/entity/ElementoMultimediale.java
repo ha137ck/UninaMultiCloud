@@ -1,7 +1,6 @@
 package it.unina.uninamulticloud.entity;
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public abstract class ElementoMultimediale {
@@ -101,7 +100,7 @@ public abstract class ElementoMultimediale {
         return autore;
     }
 
-    public void setUtente(Utente autore) {
+    public void setAutore(Utente autore) {
         this.autore = autore;
     }
 

@@ -16,7 +16,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -90,7 +89,7 @@ public class ElementoMultimedialeControl {
         nuovoElemento.setDataCreazione(LocalDateTime.now());
         nuovoElemento.setFilePath(percorsoMediaString);
         nuovoElemento.setImmagineCopertina(percorsoCopertinaString);
-        nuovoElemento.setUtente(utenteLoggato);
+        nuovoElemento.setAutore(utenteLoggato);
         nuovoElemento.setFormato(formato);
 
         //TODO Valori didattici di default, in attesa di un calcolo reale dai metadati del file

@@ -23,7 +23,10 @@ public class UtenteDAOImpl implements UtenteDAO {
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, email);
             try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {return mapResultSetToUtente(rs);}
+                if (rs.next()) {
+                    //Uso il metodo per costruire l'oggetto utente
+                    return mapResultSetToUtente(rs);
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException("Errore nella ricerca dell'utente", e); //è il modo corretto di gestire le eccezioni?
