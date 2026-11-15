@@ -8,14 +8,15 @@ public abstract class Playlist {
     private String titolo;
     private LocalDateTime dataPubblicazione;
     private String descrizione;
-    private Duration durata;
+    private Duration durataTotale;
+    private Utente proprietario; //lato N:1
 
-    public Playlist(long idPlaylist, String titolo, LocalDateTime dataPubblicazione, String descrizione, Duration durata) {
+    public Playlist(long idPlaylist, String titolo, LocalDateTime dataPubblicazione, String descrizione, Duration durataTotale) {
         this.idPlaylist = idPlaylist;
         this.titolo = titolo;
         this.dataPubblicazione = dataPubblicazione;
         this.descrizione = descrizione;
-        this.durata = durata;
+        this.durataTotale = durataTotale;
     }
 
     public long getIdPlaylist() {
@@ -50,11 +51,19 @@ public abstract class Playlist {
         this.descrizione = descrizione;
     }
 
-    public Duration getDurata() {
-        return durata;
+    public Duration getDurataTotale() {
+        return durataTotale;
     }
 
-    public void setDurata(Duration durata) {
-        this.durata = durata;
+    public void setDurataTotale(Duration durataTotale) {
+        this.durataTotale = durataTotale;
+    }
+
+    public Utente getProprietario() {
+        return proprietario;
+    }
+
+    public void setProprietario(Utente proprietario) {
+        this.proprietario = proprietario;
     }
 }

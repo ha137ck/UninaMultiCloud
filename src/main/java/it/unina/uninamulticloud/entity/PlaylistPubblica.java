@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 
 public class PlaylistPubblica extends Playlist{
 
-    public PlaylistPubblica (long idPlaylist, String titolo, LocalDateTime dataPubblicazione, String descrizione, Duration durata) {
-        super(idPlaylist, titolo, dataPubblicazione, descrizione, durata);
+    public PlaylistPubblica (long idPlaylist, String titolo, LocalDateTime dataPubblicazione, String descrizione, Duration durataTotale) {
+        super(idPlaylist, titolo, dataPubblicazione, descrizione, durataTotale);
     }
 
 }

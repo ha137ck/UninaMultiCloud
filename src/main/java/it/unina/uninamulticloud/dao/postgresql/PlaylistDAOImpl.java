@@ -11,15 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * IL CODICE PER L'APERTURA DELLA CONNESSIONE E RESULTSET è
+ * IL CODICE PER L'APERTURA DELLA CONNESSIONE E RESULTSET può essere fattorizzato.
  * */
 public class PlaylistDAOImpl implements PlaylistDAO {
+
+    private final String SELECT_BASE = "SELECT u.username, u.nome, u.cognome, p.*," +
+            " EXTRACT(EPOCH FROM p.durataTotale) as durataTotaleSecondi " +
+            " FROM Playlist as p JOIN Utente as u ON p.matricola = u.matricola ";
 
     @Override
     public Playlist findById(int idPlaylist) {
         Playlist playlist = null;
-        String query = "SELECT *,  EXTRACT(EPOCH FROM durataTotale) as durataTotaleSecondi" +
-                " FROM Playlist WHERE idPlaylist = ?";
+        String query = SELECT_BASE + " WHERE p.idPlaylist = ?";
         Connection conn = DBConnection.getInstance().getConnection();
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
             pstmt.setInt(1, idPlaylist);
@@ -37,8 +40,7 @@ public class PlaylistDAOImpl implements PlaylistDAO {
     @Override
     public List<Playlist> findByProprietario(String matricola) {
         List<Playlist> lista = new ArrayList<>();
-        String query = "SELECT *, EXTRACT(EPOCH FROM durataTotale) as durataTotaleSecondi" +
-                " FROM Playlist WHERE matricola = ? ORDER BY dataPubblicazione DESC";
+        String query = SELECT_BASE + " p.matricola = ? ORDER BY dataPubblicazione DESC";
         Connection conn = DBConnection.getInstance().getConnection();
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 
@@ -101,8 +103,7 @@ public class PlaylistDAOImpl implements PlaylistDAO {
      */
     public List<Playlist> findByTipo(String tipo) {
         List<Playlist> lista = new ArrayList<>();
-        String query = "SELECT *, EXTRACT(EPOCH FROM durataTotale) as durataTotaleSecondi" +
-                " FROM Playlist WHERE tipo = ?::TIPO_PLAYLIST ORDER BY dataPubblicazione DESC";
+        String query = SELECT_BASE + " p.tipo = ?::TIPO_PLAYLIST ORDER BY p.dataPubblicazione DESC";
         //Richiesta di connesione
         Connection conn = DBConnection.getInstance().getConnection();
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -148,7 +149,6 @@ public class PlaylistDAOImpl implements PlaylistDAO {
     //non usa le lambda
     private Playlist mapResultSetToPlaylist(ResultSet rs) throws SQLException {
         String tipo = rs.getString("tipo");
-
         long id = rs.getLong("idPlaylist");
         String titolo = rs.getString("titolo");
         LocalDateTime dataPub = rs.getTimestamp("dataPubblicazione") != null ?
@@ -156,18 +156,22 @@ public class PlaylistDAOImpl implements PlaylistDAO {
         String descrizione = rs.getString("descrizione");
         Duration durataTotale = Duration.ofSeconds(rs.getLong("durataTotaleSecondi"));
 
-        Playlist p = null;
+        //creo l'oggetto Playlist con il tipo specificato (uso una switch expression)
+        Playlist p = switch(tipo) {
+            case "pubblica" -> new PlaylistPubblica(id, titolo, dataPub, descrizione, durataTotale);
+            case "privata" -> new PlaylistPrivata(id, titolo, dataPub, descrizione, durataTotale);
+            case "condivisa" -> new PlaylistCondivisa(id, titolo, dataPub, descrizione, durataTotale);
+            default -> throw new IllegalArgumentException("Tipo di playlist sconosciuto");
+        };
 
-        if ("pubblica".equalsIgnoreCase(tipo)) {
-            p = new PlaylistPubblica(id, titolo, dataPub, descrizione, durataTotale);
-        } else if ("privata".equalsIgnoreCase(tipo)) {
-            p = new PlaylistPrivata(id, titolo, dataPub, descrizione, durataTotale);
-        } else if ("condivisa".equalsIgnoreCase(tipo)) {
-            p = new PlaylistCondivisa(id, titolo, dataPub, descrizione, durataTotale);
-        }
-        else {
-            throw new SQLException("Tipo di playlist non valido: " + tipo);
-        }
+        //imposto il proprietario della playlist, recupero solo le info utili per la playlist
+        Utente proprietario = new Utente();
+        proprietario.setMatricola(rs.getString("matricola"));
+        proprietario.setNome(rs.getString("nome"));
+        proprietario.setCognome(rs.getString("cognome"));
+        proprietario.setUsername(rs.getString("username"));
+        p.setProprietario(proprietario);
+
         return p;
     }
 }
