@@ -1,5 +1,5 @@
 package it.unina.uninamulticloud.entity;
-
+//Sarebbe da rendere classe astratta per distinguere tra album e playlist ed elementi multimediali
 public class Recensione {
     private String descrizione;
     private int punteggio;

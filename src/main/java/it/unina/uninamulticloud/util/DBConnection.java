@@ -30,7 +30,6 @@ public class DBConnection {
     //istanza privata della connessione a postgres
     private Connection connection = null;
 
-
     //construttore privato per evitare istanziazioni multiple
     private DBConnection() {
         Properties props = new Properties();
@@ -47,7 +46,7 @@ public class DBConnection {
         this.password = props.getProperty("db.password");
     }
 
-    //metodo statico per ottenere l'unica istanza di DBConnection
+    //metodo statico per ottenere l'unica istanza di DBConnection, che è privata
     public static DBConnection getInstance() {
         //pattern singleton
         if (instance == null) {

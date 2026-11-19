@@ -37,7 +37,7 @@ public class ComposizioneDAOImpl implements ComposizioneDAO {
             pstmtInsert.executeUpdate();
 
         } catch (SQLException e) {
-            e.printStackTrace();
+           throw new RuntimeException("Errore nella creazione della playlist", e);
         }
     }
 
@@ -67,12 +67,12 @@ public class ComposizioneDAOImpl implements ComposizioneDAO {
                 conn.commit();
             } catch (SQLException ex) {
                 conn.rollback();
-                ex.printStackTrace();
+                throw new RuntimeException("Errore nella cancellazione dell'elemento", ex);
             } finally {
                 conn.setAutoCommit(true);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Errore nella cancellazione dell'elemento", e);
         }
     }
 
@@ -111,12 +111,12 @@ public class ComposizioneDAOImpl implements ComposizioneDAO {
                 conn.commit();
             } catch (SQLException ex) {
                 conn.rollback();
-                ex.printStackTrace();
+                throw new RuntimeException("Errore nella scambio delle posizioni", ex);
             } finally {
                 conn.setAutoCommit(true);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Errore nella scambio delle posizioni", e);
         }
     }
 
@@ -136,7 +136,7 @@ public class ComposizioneDAOImpl implements ComposizioneDAO {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Errore nella ricerca delle composizioni", e);
         }
         return elementi;
     }

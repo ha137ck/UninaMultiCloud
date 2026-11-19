@@ -23,6 +23,7 @@ public class HomeBoundary {
     @FXML private Button creaPlaylistButton;
     @FXML private Button caricaElementoButton;
     @FXML private Button caricaAlbumButton;
+    @FXML private Button libreriaButton;
     @FXML private Button profiloButton;
     @FXML private FlowPane pubblicazioniFlowPane;
     @FXML private FlowPane playlistFlowPane;
@@ -71,6 +72,12 @@ public class HomeBoundary {
     public void onMioProfilo() {
         System.out.println("Apro schermata profilo utente...");
         SceneManager.getInstance().switchScene("MioProfilo.fxml");
+    }
+
+    //per aprire la libreria
+    @FXML
+    private void onApriLibreria() {
+        SceneManager.getInstance().switchScene("Libreria.fxml");
     }
 
     // Questi metodi riceveranno probabilmente l'ID dell'elemento cliccato come parametro

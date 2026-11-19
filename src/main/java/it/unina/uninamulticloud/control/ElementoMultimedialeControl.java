@@ -83,10 +83,10 @@ public class ElementoMultimedialeControl {
         ElementoMultimediale nuovoElemento = isAudio ? new Audio() : new Video();
 
         // 4. Popola l'oggetto Model
+        if(titolo == null || titolo.isBlank()) throw new IllegalArgumentException("Il titolo è obbligatorio.");
         nuovoElemento.setTitolo(titolo);
         nuovoElemento.setDescrizione(descrizione);
         nuovoElemento.setDurata(Duration.ofSeconds(180)); //TODO GESTIRE LA DURATA (per ora Valore didattico di default)
-        nuovoElemento.setDataCreazione(LocalDateTime.now());
         nuovoElemento.setFilePath(percorsoMediaString);
         nuovoElemento.setImmagineCopertina(percorsoCopertinaString);
         nuovoElemento.setAutore(utenteLoggato);
@@ -97,7 +97,7 @@ public class ElementoMultimedialeControl {
             audio.setBitRate(320);
         }
         if (nuovoElemento instanceof Video video) {
-            video.setRisoluzione("720pp");
+            video.setRisoluzione("720p");
         }
 
         //5. Salva nel db

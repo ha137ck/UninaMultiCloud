@@ -55,6 +55,9 @@
                   </image>
                </ImageView>
             </graphic></Button>
+           <Button fx:id="libreriaButton" onAction="#onApriLibreria" maxWidth="Infinity" styleClass="sidebar-button" text="La mia libreria">
+
+           </Button>
         </VBox>
     </left>
 
