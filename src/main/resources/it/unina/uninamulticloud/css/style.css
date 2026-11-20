@@ -149,3 +149,79 @@
     -fx-background-color: black;
     -fx-border-color: white;
 }
+
+/* ==========================================
+   STILE BOTTONE BACK (Generico)
+   ========================================== */
+.back-button {
+    -fx-background-color: black;
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 7px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+    -fx-padding: 3px 12px;
+}
+
+.back-button:hover {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.back-button:pressed {
+    -fx-background-color: black;
+    -fx-border-color: white;
+}
+
+/* ==========================================
+   STILE BOTTONE CARICAMENTO (Gnerico)
+   ========================================== */
+.carica-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 7px;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+    -fx-padding: 6px 16px;
+}
+
+.carica-button:hover {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.carica-button:pressed {
+    -fx-background-color: white;
+    -fx-border-color: black;
+}
+
+/* ==========================================
+   STILE BOTTONE CREAZIONE (Gnerico)
+   ========================================== */
+.crea-button {
+    -fx-background-color: black;
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 7px;
+    -fx-text-fill: white;
+    -fx-font-weight: regular;
+    -fx-cursor: hand;
+}
+
+.crea-button:hover {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.crea-button:pressed {
+    -fx-background-color: black;
+    -fx-border-color: white;
+}

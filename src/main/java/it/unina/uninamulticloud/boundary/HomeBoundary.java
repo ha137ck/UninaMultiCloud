@@ -61,6 +61,7 @@ public class HomeBoundary {
     @FXML
     public void onCreaPlaylist() {
         System.out.println("Apro schermata creazione playlist...");
+        SceneManager.getInstance().switchScene("UploadPlaylist.fxml");
     }
 
     @FXML

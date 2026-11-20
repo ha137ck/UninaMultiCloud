@@ -5,36 +5,51 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="it.unina.uninamulticloud.boundary.LibreriaBoundary">
+<BorderPane xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.uninamulticloud.boundary.LibreriaBoundary">
     <top>
-        <HBox spacing="16" alignment="CENTER_LEFT">
+        <HBox alignment="CENTER_LEFT" spacing="16">
             <padding>
-                <Insets top="16" right="24" bottom="8" left="24"/>
+                <Insets bottom="8" left="24" right="24" top="16" />
             </padding>
-            <Button text="← Home" onAction="#onTornaAllaHome"/>
-            <Label text="La mia libreria"/>
+            <Button onAction="#onTornaAllaHome" prefHeight="16.0" prefWidth="90.0" styleClass="back-button" stylesheets="@../css/style.css" text="Home" textFill="WHITE">
+            <graphic>
+               <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/WBack.png" />
+                  </image>
+               </ImageView>
+            </graphic></Button>
+            <Label text="La mia libreria">
+            <font>
+               <Font size="14.0" />
+            </font></Label>
         </HBox>
     </top>
     <center>
         <TableView fx:id="tabellaElementi">
+            <placeholder>
+                <Label text="Nessun elemento multimediale nella libreria" />
+            </placeholder>
             <columns>
-                <TableColumn fx:id="colTitolo" text="Titolo" prefWidth="320"/>
-                <TableColumn fx:id="colTipo" text="Tipo" prefWidth="90"/>
-                <TableColumn fx:id="colDurata" text="Durata" prefWidth="90"/>
-                <TableColumn fx:id="colFormato" text="Formato" prefWidth="90"/>
-                <TableColumn fx:id="colDataCreazione" text="Caricato il" prefWidth="160"/>
-                <TableColumn fx:id="immagineCopertina" text="immagine"/>
+                <TableColumn fx:id="colTitolo" prefWidth="320" text="Titolo" />
+                <TableColumn fx:id="colTipo" prefWidth="90" text="Tipo" />
+                <TableColumn fx:id="colDurata" prefWidth="90" text="Durata" />
+                <TableColumn fx:id="colFormato" prefWidth="90" text="Formato" />
+                <TableColumn fx:id="colDataCreazione" prefWidth="160" text="Caricato il" />
+                <TableColumn fx:id="immagineCopertina" text="immagine" />
             </columns>
         </TableView>
     </center>
     <bottom>
         <Label fx:id="lblMessaggio">
             <padding>
-                <Insets top="8" right="24" bottom="16" left="24"/>
+                <Insets bottom="16" left="24" right="24" top="8" />
             </padding>
         </Label>
     </bottom>
