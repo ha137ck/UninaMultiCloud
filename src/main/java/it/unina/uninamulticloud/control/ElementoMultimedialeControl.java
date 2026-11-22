@@ -131,4 +131,10 @@ public class ElementoMultimedialeControl {
         }
         return elementoMultimedialeDAO.findByAutore(utenteLoggato.getMatricola());
     }
+/*
+    public List<ElementoMultimediale> cerca(criterio, valore){
+        return elementoMultimedialeDAO.findByAutore();
+    }
+ */
+
 }

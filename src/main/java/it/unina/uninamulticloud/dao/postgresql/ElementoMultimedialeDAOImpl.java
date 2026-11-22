@@ -120,8 +120,9 @@ public class ElementoMultimedialeDAOImpl implements ElementoMultimedialeDAO {
     }
 
     @Override
-    public List<ElementoMultimediale> findByTipologiaPlaylist(String tipoPlaylist) throws SQLException {
+    public List<ElementoMultimediale> findByTipologiaPlaylist(String tipoPlaylist, Utente utenteLoggato) throws SQLException {
         // Estrae gli elementi associati a playlist di una determinata tipologia tramite doppia JOIN
+        //PERCHé USA UNA DOPPIA JOIN?
         String sql = "SELECT DISTINCT e.*, EXTRACT(EPOCH FROM e.durata) AS durata_sec, u.username, u.nome, u.cognome " +
                 "FROM ElementoMultimediale e " +
                 "JOIN Composizione c ON e.idElementoMultimediale = c.idElementoMultimediale " +
@@ -129,10 +130,23 @@ public class ElementoMultimedialeDAOImpl implements ElementoMultimedialeDAO {
                 "LEFT JOIN Utente u ON e.matricola = u.matricola " +
                 "WHERE p.tipo = ?::TIPO_PLAYLIST " +
                 "ORDER BY e.idElementoMultimediale DESC";
-        //è necessario usare una lambda?
         return executeQueryList(sql, statement ->
                 statement.setString(1, tipoPlaylist.toLowerCase())
         );
+    }
+
+    @Override
+    public List<ElementoMultimediale> findByTitolo(String titolo) throws SQLException {
+        String titoloCorretto = titolo.replace("\\", "\\\\").replace("%","\\%").replace("_","\\_");
+        String sql = "SELECT e.*, EXTRACT(EPOCH FROM e.durata) AS durata_sec, u.username, u.nome, u.cognome " +
+                "FROM ElementoMultimediale e " +
+                "JOIN Utente u ON e.matricola = u.matricola " +
+                "WHERE e.titolo ILIKE ? ESCAPE '\\' " +
+                "ORDER BY e.dataCreazione DESC";
+
+        return executeQueryList(sql, statement ->{
+            statement.setString(1, "%" + titoloCorretto + "%");
+        });
     }
 
 

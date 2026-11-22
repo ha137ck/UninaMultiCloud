@@ -1,5 +1,7 @@
 package it.unina.uninamulticloud.dao;
 import it.unina.uninamulticloud.entity.ElementoMultimediale;
+import it.unina.uninamulticloud.entity.Utente;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -33,8 +35,11 @@ public interface ElementoMultimedialeDAO {
 
         /**
          * Filtra gli elementi multimediali in base alla tipologia di playlist in cui sono inseriti.
-         * @param tipoPlaylist Il tipo di playlist ('pubblica', 'privata', 'condivisa').
+         *
+         * @param tipoPlaylist  Il tipo di playlist ('pubblica', 'privata', 'condivisa').
+         * @param utenteLoggato
          */
-        List<ElementoMultimediale> findByTipologiaPlaylist(String tipoPlaylist) throws SQLException;
+        List<ElementoMultimediale> findByTipologiaPlaylist(String tipoPlaylist, Utente utenteLoggato) throws SQLException;
 
+        List<ElementoMultimediale> findByTitolo(String titolo) throws SQLException;
 }
