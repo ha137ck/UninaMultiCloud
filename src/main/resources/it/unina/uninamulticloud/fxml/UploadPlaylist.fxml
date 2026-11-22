@@ -2,111 +2,148 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" stylesheets="@../css/style.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.uninamulticloud.boundary.PlaylistBoundary">
-
-    <left>
-        <VBox prefHeight="720.0" prefWidth="279.0" spacing="10.0" style="-fx-padding: 30; -fx-border-color: lightgray; -fx-border-insets: 1; -fx-border-width: 0 1px 0 0;">
-            <Label alignment="CENTER" text="UninaMultiCloud">
+<BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.uninamulticloud.boundary.PlaylistBoundary">
+    <center>
+        <VBox alignment="CENTER" prefHeight="635.0" prefWidth="1398.0" spacing="20.0" style="-fx-background-color: lightgrey;" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" />
+            </padding>
+         <HBox alignment="CENTER" prefHeight="276.0" prefWidth="1220.0">
+            <children>
+               <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="310.0">
+                  <children>
+                     <Label text="Nome *">
+                        <font>
+                           <Font name="System Bold" size="18.0" />
+                        </font>
+                        <VBox.margin>
+                           <Insets bottom="5.0" />
+                        </VBox.margin>
+                     </Label>
+                     <TextField fx:id="nomeField" prefHeight="35.0" prefWidth="392.0" promptText="Nome Playlist">
+                        <VBox.margin>
+                           <Insets bottom="20.0" />
+                        </VBox.margin>
+                     </TextField>
+                     <Label text="Visibilità *">
+                        <font>
+                           <Font name="System Bold" size="18.0" />
+                        </font>
+                        <VBox.margin>
+                           <Insets bottom="5.0" />
+                        </VBox.margin>
+                     </Label>
+                     <ComboBox fx:id="visibilitaField" prefHeight="35.0" prefWidth="1051.0" styleClass="combo-box" stylesheets="@../css/style.css">
+                        <VBox.margin>
+                           <Insets bottom="20.0" />
+                        </VBox.margin>
+                     </ComboBox>
+                     <Label text="Aggiungi Collaboratori *">
+                        <font>
+                           <Font name="System Bold" size="18.0" />
+                        </font>
+                        <VBox.margin>
+                           <Insets bottom="5.0" />
+                        </VBox.margin>
+                     </Label>
+                     <TextField fx:id="emailField" prefHeight="35.0" prefWidth="392.0" promptText="Email" />
+                  </children>
+                  <HBox.margin>
+                     <Insets right="30.0" />
+                  </HBox.margin>
+               </VBox>
+               <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="310.0">
+                  <children>
+                     <Label text="Descrizione">
+                        <font>
+                           <Font name="System Bold" size="18.0" />
+                        </font>
+                        <VBox.margin>
+                           <Insets bottom="5.0" />
+                        </VBox.margin>
+                     </Label>
+                     <TextArea fx:id="descrizioneField" prefHeight="200.0" prefWidth="200.0" />
+                  </children>
+                  <HBox.margin>
+                     <Insets left="30.0" />
+                  </HBox.margin>
+               </VBox>
+            </children>
+            <VBox.margin>
+               <Insets />
+            </VBox.margin>
+         </HBox>
+         <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#onSelezionaCopertina" style="-fx-background-color: transparent;" styleClass="carica-button" stylesheets="@../css/style.css" text="Carica Copertina">
+            <graphic>
+               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../images/uploadIcon.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+            <VBox.margin>
+               <Insets />
+            </VBox.margin>
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+         </Button>
+         <Label fx:id="nomeCopertinaField" text="* nessuna copertina selezionata">
+            <font>
+               <Font name="System Italic" size="12.0" />
+            </font>
+            <VBox.margin>
+               <Insets top="-25.0" />
+            </VBox.margin>
+         </Label>
+            <Button prefWidth="200" style="-fx-background-color: black;" styleClass="crea-button" stylesheets="@../css/style.css" text="CREA" textFill="WHITE">
                 <font>
-                    <Font name="System Bold" size="23.0" />
+                    <Font size="14.0" />
                 </font>
+            <VBox.margin>
+               <Insets />
+            </VBox.margin></Button>
+            <Label fx:id="errorLabel" prefHeight="18.0" prefWidth="201.0" text=" ">
                 <VBox.margin>
-                    <Insets top="30.0" />
-                </VBox.margin>
-            </Label>
-            <Line endX="112.5" startX="-100.0" />
-            <Button fx:id="homeButton" maxWidth="Infinity" styleClass="sidebar-button" text="Home">
-                <graphic>
-                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../images/home.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-                <VBox.margin>
-                    <Insets top="30.0" />
-                </VBox.margin></Button>
-            <Button fx:id="cercaButton" layoutX="41.0" layoutY="181.0" maxWidth="Infinity" styleClass="sidebar-button" text="Cerca">
-                <graphic>
-                    <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../images/search.png" />
-                        </image>
-                    </ImageView>
-                </graphic>
-            </Button>
-            <Button fx:id="creaPlaylistButton" maxWidth="Infinity" styleClass="sidebar-button" text="Crea Playlist">
-                <graphic>
-                    <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../images/plus.png" />
-                        </image>
-                    </ImageView>
-                </graphic></Button>
-            <Button fx:id="caricaElementoButton" maxWidth="Infinity" onMouseClicked="#onCaricaElemento" styleClass="sidebar-button" text="Carica Elemento">
-                <graphic>
-                    <ImageView fitHeight="24.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../images/plus.png" />
-                        </image>
-                    </ImageView>
-                </graphic></Button>
-            <Button fx:id="caricaAlbumButton" maxWidth="Infinity" styleClass="sidebar-button" text="Carica Album">
-                <graphic>
-                    <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@../images/plus.png" />
-                        </image>
-                    </ImageView>
-                </graphic></Button>
+                    <Insets bottom="-50.0" />
+                </VBox.margin></Label>
+         <BorderPane.margin>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="20.0" />
+         </BorderPane.margin>
         </VBox>
-    </left>
-
-    <center>
-
     </center>
-    <center>
-        <BorderPane minWidth="0.0" BorderPane.alignment="CENTER">
-            <center>
-                <ScrollPane fitToWidth="true" minWidth="0.0" style="-fx-background-insets: 0;">
-                    <content>
-                        <VBox minWidth="0.0" style="-fx-padding: 20; -fx-spacing: 20;" />
-                    </content>
-                </ScrollPane>
-            </center>
-            <top>
-                <AnchorPane minWidth="0.0" prefHeight="101.0" BorderPane.alignment="CENTER">
-                    <children>
-                        <Label fx:id="welcomeLabel" minWidth="0.0" prefHeight="124.0" prefWidth="398.0" AnchorPane.leftAnchor="20.0">
-                            <font>
-                                <Font size="30.0" />
-                            </font>
-                            <effect>
-                                <DropShadow>
-                                    <color>
-                                        <Color red="0.8289473652839661" green="0.8289473652839661" blue="0.8289473652839661" />
-                                    </color>
-                                </DropShadow>
-                            </effect>
-                        </Label>
-
-                        <Button fx:id="profiloButton" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="806.0" layoutY="46.0" maxWidth="-Infinity" minWidth="0.0" onAction="#onMioProfilo" styleClass="profile-button" text="Il mio profilo" textAlignment="RIGHT" AnchorPane.rightAnchor="60.0" />
-                    </children>
-                </AnchorPane>
-            </top>
-        </BorderPane>
-    </center>
-
+    <top>
+        <AnchorPane prefHeight="85.0" prefWidth="1280.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button layoutX="30.0" layoutY="10.0" mnemonicParsing="false" onAction="#onIndietro" prefHeight="43.0" prefWidth="121.0" style="text: white;" styleClass="profile-button" stylesheets="@../css/style.css" text="Indietro" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="21.0">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/WBack.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+   
+               <Label layoutX="554.0" layoutY="9.0" prefHeight="43.0" prefWidth="173.0" style="-fx-font-size: 30px; -fx-font-weight: bold;" text="Crea playlist" AnchorPane.topAnchor="20.0" />
+            </children>
+        </AnchorPane>
+    </top>
 </BorderPane>

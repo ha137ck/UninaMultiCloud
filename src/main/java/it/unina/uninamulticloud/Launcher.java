@@ -7,7 +7,6 @@ public class Launcher {
 }
 //TODO cambiare risoluzione
 
-
 //TODO rivedere reinserimento di combobox per selezionare l'università
 
 //TODO gestire la selezione dei file con FileChooser per partire da una cartella specifica
