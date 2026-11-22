@@ -6,17 +6,12 @@ import it.unina.uninamulticloud.entity.Audio;
 import it.unina.uninamulticloud.entity.ElementoMultimediale;
 import it.unina.uninamulticloud.entity.Utente;
 import it.unina.uninamulticloud.entity.Video;
-import it.unina.uninamulticloud.util.SessionManager;
+import it.unina.uninamulticloud.entity.enums.CriterioRicerca;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -129,12 +124,19 @@ public class ElementoMultimedialeControl {
         if (utenteLoggato == null) {
             throw new IllegalStateException("Utente non autenticato.");
         }
-        return elementoMultimedialeDAO.findByAutore(utenteLoggato.getMatricola());
+        return elementoMultimedialeDAO.findByAutoreEsatto(utenteLoggato.getMatricola());
     }
-/*
-    public List<ElementoMultimediale> cerca(criterio, valore){
-        return elementoMultimedialeDAO.findByAutore();
+
+    public List<ElementoMultimediale> cerca(CriterioRicerca criterio, String valore) throws SQLException {
+
+        if(valore == null || valore.isBlank()) throw new IllegalArgumentException("Inserisci un valore da cercare.");
+        if(criterio == null) throw new IllegalArgumentException("Seleziona un criterio di ricerca.");
+
+        return switch(criterio){
+            case TITOLO -> elementoMultimedialeDAO.findByTitolo(valore);
+            case AUTORE -> elementoMultimedialeDAO.findByAutoreEsatto(valore);
+        };
     }
- */
+
 
 }

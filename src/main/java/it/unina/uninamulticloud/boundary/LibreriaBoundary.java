@@ -17,6 +17,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import static it.unina.uninamulticloud.util.FormattatoreData.formattaData;
+import static it.unina.uninamulticloud.util.FormattatoreData.formattaDurata;
+
 public class LibreriaBoundary {
 
     @FXML private TableView<ElementoMultimediale> tabellaElementi;
@@ -30,7 +33,6 @@ public class LibreriaBoundary {
 
     @FXML private Label lblMessaggio;
 
-    private final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     //Chiamato al caricamento della pagina da FxmlLoader
     @FXML public void initialize() {
@@ -39,7 +41,7 @@ public class LibreriaBoundary {
         colTipo.setCellValueFactory(riga -> new SimpleStringProperty(
                 riga.getValue() instanceof Audio ? "Audio" : "Video"));
         colDurata.setCellValueFactory(riga -> new SimpleStringProperty(
-                formattaDurata(riga.getValue().getDurata())));
+                formattaDurata(riga.getValue().getDurata()))); //formattaDurata è un metodo custom di FormattatoreData
         colFormato.setCellValueFactory(riga -> new SimpleStringProperty(riga.getValue().getFormato()));
         colDataCreazione.setCellValueFactory(riga ->
                                                                     new SimpleStringProperty(formattaData(riga.getValue().getDataCreazione())));
@@ -61,18 +63,5 @@ public class LibreriaBoundary {
         }catch (SQLException e){
             lblMessaggio.setText("Errore nel caricamento della libreria: " + e.getMessage());
         }
-    }
-
-
-    private String formattaDurata(Duration d) {
-        if (d == null) return "-";
-        //operatore ternario
-        return (d.toHours() > 0)
-                ? String.format("%d:%02d:%02d", d.toHours(), d.toMinutesPart(), d.toSecondsPart())
-                : String.format("%d:%02d", d.toMinutesPart(), d.toSecondsPart());
-    }
-
-    private String formattaData(LocalDateTime data) {
-        return (data == null) ? "-" : data.format(FORMATO_DATA);
     }
 }

@@ -66,6 +66,7 @@ public class HomeBoundary {
 
     @FXML
     public void onCerca() {
+        SceneManager.getInstance().switchScene("Ricerca.fxml");
         System.out.println("Apro schermata di ricerca...");
     }
 

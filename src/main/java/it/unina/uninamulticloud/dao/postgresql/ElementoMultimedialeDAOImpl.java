@@ -105,7 +105,7 @@ public class ElementoMultimedialeDAOImpl implements ElementoMultimedialeDAO {
 
     //come funziona il parametro matricolaOrUsername? è un singolo parametro che uso nella select due volte?
     @Override
-    public List<ElementoMultimediale> findByAutore(String matricolaOrUsername) throws SQLException {
+    public List<ElementoMultimediale> findByAutoreEsatto(String matricolaOrUsername) throws SQLException {
         // Consente la ricerca flessibile richiesta combinando matricola o username dell'utente
         String sql = "SELECT e.*, EXTRACT(EPOCH FROM e.durata) AS durata_sec, u.username, u.nome, u.cognome " +
                 "FROM ElementoMultimediale e " +

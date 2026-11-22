@@ -31,7 +31,7 @@ public interface ElementoMultimedialeDAO {
          * Filtra gli elementi multimediali in base all'autore, accettando sia la matricola che lo username.
          * @param matricolaOrUsername Identificativo testuale dell'autore.
          */
-        List<ElementoMultimediale> findByAutore(String matricolaOrUsername) throws SQLException;
+        List<ElementoMultimediale> findByAutoreEsatto(String matricolaOrUsername) throws SQLException;
 
         /**
          * Filtra gli elementi multimediali in base alla tipologia di playlist in cui sono inseriti.

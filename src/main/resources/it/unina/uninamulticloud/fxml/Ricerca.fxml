@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.uninamulticloud.boundary.RicercaBoundary">
+    <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onIndietro" prefHeight="43.0" prefWidth="121.0" style="text: white;" styleClass="profile-button" stylesheets="@../css/style.css" text="Indietro" textFill="WHITE" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
+        <font>
+            <Font size="20.0" />
+        </font>
+        <graphic>
+            <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../images/WBack.png" />
+            </ImageView>
+        </graphic>
+    </Button>
+
+    <TableView fx:id="risultatiTableView" layoutX="61.0" layoutY="157.0" prefHeight="500.0" prefWidth="1152.0">
+        <columns>
+            <TableColumn fx:id="titoloTableColumn" prefWidth="200.0" text="Titolo" />
+            <TableColumn fx:id="autoreTableColumn" prefWidth="200.0" text="Autore" />
+            <TableColumn fx:id="durataTableColumn" prefWidth="100.0" text="Durata" />
+        </columns>
+    </TableView>
+
+    <TextField fx:id="barraRicercaTextField" layoutX="135.0" layoutY="74.0" prefHeight="25.0" prefWidth="923.0" promptText="Cerca" />
+
+    <Button fx:id="cercaButton" layoutX="1070.0" layoutY="72.0" mnemonicParsing="false" onAction="#onEseguiRicerca" styleClass="crea-button" stylesheets="@../css/style.css" text="Cerca" />
+
+    <Label fx:id="messaggioLabel" layoutX="61.0" layoutY="115.0" text="" textFill="RED">
+        <font>
+            <Font size="14.0" />
+        </font>
+    </Label>
+    <ComboBox fx:id="oggettoComboBox" layoutX="1141.0" layoutY="93.0" prefHeight="25.0" prefWidth="129.0" promptText="Cerca in:" styleClass="combo-box" stylesheets="@../css/style.css" />
+    <ComboBox fx:id="criterioComboBox" layoutX="1141.0" layoutY="45.0" prefHeight="25.0" prefWidth="129.0" promptText="Cerca per:" styleClass="combo-box" stylesheets="@../css/style.css" />
+</Pane>
