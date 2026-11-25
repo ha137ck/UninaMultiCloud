@@ -513,3 +513,201 @@
 .table-view .corner {
     -fx-background-color: transparent;
 }
+
+/* =========================================
+   CAMPI DI TESTO & TEXTAREA GENERICI
+   ========================================= */
+
+/* Applicato automaticamente a tutti i TextField e PasswordField */
+.text-field {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 10px;
+    -fx-border-color: #CBD5E1;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1.5px;
+    -fx-pref-height: 40px;
+    -fx-padding: 0 14px;
+    -fx-font-size: 13.5px;
+    -fx-text-fill: #0F172A;
+    -fx-prompt-text-fill: #94A3B8;
+    -fx-highlight-fill: #E0F2FE;
+    -fx-highlight-text-fill: #003B73;
+}
+
+.text-field:hover {
+    -fx-border-color: #94A3B8;
+}
+
+.text-field:focused {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #003B73;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 59, 115, 0.14), 10, 0, 0, 2);
+}
+
+/* Applicato automaticamente a tutte le TextArea (es. Descrizione) */
+.text-area {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 10px;
+    -fx-border-color: #CBD5E1;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1.5px;
+    -fx-padding: 2px;
+    -fx-font-size: 13.5px;
+    -fx-text-fill: #0F172A;
+    -fx-prompt-text-fill: #94A3B8;
+    -fx-highlight-fill: #E0F2FE;
+    -fx-highlight-text-fill: #003B73;
+}
+
+.text-area:hover {
+    -fx-border-color: #94A3B8;
+}
+
+.text-area:focused {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #003B73;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 59, 115, 0.14), 10, 0, 0, 2);
+}
+
+/* Nodi interni della TextArea (necessari per evitare il doppio bordo grigio di default) */
+.text-area .scroll-pane,
+.text-area .scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.text-area .content {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 8px;
+    -fx-padding: 10px 12px;
+}
+
+/* Scrollbar interna della TextArea */
+.text-area .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 8px;
+}
+
+.text-area .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-bar:vertical .thumb {
+    -fx-background-color: #CBD5E1;
+    -fx-background-radius: 6px;
+}
+
+.text-area .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #94A3B8;
+}
+
+.text-area .scroll-bar .increment-button,
+.text-area .scroll-bar .decrement-button {
+    -fx-padding: 0;
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+}
+
+/* Stato disabilitato (es. campi in sola lettura nella schermata profilo) */
+.text-field:disabled,
+.text-area:disabled {
+    -fx-opacity: 1.0;
+    -fx-background-color: #F8FAFC;
+    -fx-border-color: #E2E8F0;
+    -fx-text-fill: #64748B;
+}
+
+.text-area:disabled .content {
+    -fx-background-color: #F8FAFC;
+}
+
+/* Classe opzionale per evidenziare un campo con errore di validazione */
+.input-error {
+    -fx-border-color: #DC2626;
+}
+
+.input-error:focused {
+    -fx-effect: dropshadow(three-pass-box, rgba(220, 38, 38, 0.14), 10, 0, 0, 2);
+}
+
+/* =========================================
+   HOME: CARD MULTIMEDIALI & BOTTONI HEADER
+   ========================================= */
+
+.profile-button {
+    -fx-background-color: #0F172A;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+}
+
+.profile-button:hover {
+    -fx-background-color: #1E293B;
+}
+
+.amici-button {
+    -fx-background-color: #0284C7;
+    -fx-text-fill: #0F172A;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 16px;
+    -fx-background-radius: 8px;
+    -fx-cursor: hand;
+}
+
+.amici-button:hover {
+    -fx-background-color: #0369A1;
+    -fx-text-fill: #FFFFFF;
+}
+
+/* Card contenitore */
+.media-card {
+    -fx-cursor: hand;
+}
+
+/* Riquadro quadrato con gradiente grigio di fallback (quando manca la copertina) */
+.media-card-cover {
+    -fx-background-color: linear-gradient(to bottom, #A1A1AA, #71717A);
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(three-pass-box, rgba(15, 23, 42, 0.08), 10, 0, 0, 3);
+}
+
+.media-card:hover .media-card-cover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 59, 115, 0.22), 14, 0, 0, 5);
+}
+
+/* Testo in alto a sinistra dentro la card ("Elemento", "Album", "Playlist") */
+.media-card-badge {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.45), 6, 0, 0, 1);
+}
+
+/* Triangolo Play in basso a destra */
+.media-card-play {
+    -fx-text-fill: #0F172A;
+    -fx-font-size: 13px;
+    -fx-background-color: rgba(255, 255, 255, 0.75);
+    -fx-background-radius: 50%;
+    -fx-padding: 3px 6px 3px 8px;
+}
+
+.media-card:hover .media-card-play {
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #003B73;
+}
+
+/* Titolo e descrizione sotto la card */
+.media-card-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #0F172A;
+}
+
+.media-card-desc {
+    -fx-font-size: 12px;
+    -fx-text-fill: #64748B;
+}

@@ -9,7 +9,10 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
@@ -82,13 +85,38 @@
                               <Font name="System Bold" size="24.0" />
                            </font>
                         </Label>
-                        <FlowPane fx:id="pubblicazioniFlowPane" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" style="-fx-hgap: 15; -fx-vgap: 15;" />
-                        <Label layoutX="30.0" layoutY="30.0" text="Le mie playlist">
-                           <font>
-                              <Font name="System Bold" size="24.0" />
-                           </font>
-                        </Label>
-                        <FlowPane fx:id="playlistFlowPane" layoutX="30.0" layoutY="80.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" style="-fx-hgap: 15; -fx-vgap: 15;" />
+                        <FlowPane fx:id="pubblicazioniFlowPane" hgap="20.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" style="-fx-hgap: 15; -fx-vgap: 15;" vgap="20.0" />
+                        <GridPane prefHeight="214.0" prefWidth="959.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="14.0">
+                                 <children>
+                                    <Label text="I miei album">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <FlowPane fx:id="albumFlowPane" hgap="20.0" minWidth="0.0" prefHeight="200.0" prefWidth="480.0" style="-fx-hgap: 15; -fx-vgap: 15;" vgap="20.0" />
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0" spacing="14.0" GridPane.columnIndex="1">
+                                 <children>
+                                    <Label text="Le mie playlist">
+                                       <font>
+                                          <Font name="System Bold" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <FlowPane fx:id="playlistFlowPane" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" style="-fx-hgap: 15; -fx-vgap: 15;" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </GridPane>
                      </children>
                   </VBox>
                </content>
