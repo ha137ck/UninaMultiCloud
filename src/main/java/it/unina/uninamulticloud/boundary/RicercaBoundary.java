@@ -88,7 +88,7 @@ public class RicercaBoundary {
     }
 
     @FXML
-    public void onIndietro(MouseEvent mouseEvent) {
+    public void onIndietro() {
         System.out.println("Torno alla home...");
         SceneManager.getInstance().switchScene("Home.fxml");
     }

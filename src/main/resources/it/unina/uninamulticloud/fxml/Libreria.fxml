@@ -11,15 +11,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.uninamulticloud.boundary.LibreriaBoundary">
+<BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unina.uninamulticloud.boundary.LibreriaBoundary">
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="16">
+        <HBox alignment="CENTER_LEFT" prefHeight="65.0" prefWidth="1280.0" spacing="16">
             <padding>
                 <Insets bottom="8" left="24" right="24" top="16" />
             </padding>
-            <Button onAction="#onTornaAllaHome" prefHeight="16.0" prefWidth="90.0" styleClass="back-button" stylesheets="@../css/style.css" text="Home" textFill="WHITE">
+            <Button onAction="#onTornaAllaHome" prefHeight="27.0" prefWidth="79.0" styleClass="backgen-button" stylesheets="@../css/style.css" text="Home" textFill="WHITE">
             <graphic>
-               <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+               <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
                   <image>
                      <Image url="@../images/WBack.png" />
                   </image>
@@ -27,27 +27,30 @@
             </graphic></Button>
             <Label text="La mia libreria">
             <font>
-               <Font size="14.0" />
+               <Font name="System Bold" size="14.0" />
             </font></Label>
         </HBox>
     </top>
     <center>
-        <TableView fx:id="tabellaElementi">
+        <TableView fx:id="tabellaElementi" prefHeight="832.0" prefWidth="1280.0" stylesheets="@../css/style.css">
             <placeholder>
                 <Label text="Nessun elemento multimediale nella libreria" />
             </placeholder>
             <columns>
-                <TableColumn fx:id="colTitolo" prefWidth="320" text="Titolo" />
+                <TableColumn fx:id="immagineCopertina" prefWidth="129.0" text="Copertina" />
+                <TableColumn fx:id="colTitolo" prefWidth="340.0" text="Titolo" />
                 <TableColumn fx:id="colTipo" prefWidth="90" text="Tipo" />
                 <TableColumn fx:id="colDurata" prefWidth="90" text="Durata" />
-                <TableColumn fx:id="colFormato" prefWidth="90" text="Formato" />
-                <TableColumn fx:id="colDataCreazione" prefWidth="160" text="Caricato il" />
-                <TableColumn fx:id="immagineCopertina" text="immagine" />
+                <TableColumn fx:id="colFormato" prefWidth="124.0" text="Formato" />
+                <TableColumn fx:id="colDataCreazione" prefWidth="176.0" text="Caricato il" />
             </columns>
+         <BorderPane.margin>
+            <Insets left="20.0" right="20.0" top="20.0" />
+         </BorderPane.margin>
         </TableView>
     </center>
     <bottom>
-        <Label fx:id="lblMessaggio">
+        <Label fx:id="lblMessaggio" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
             <padding>
                 <Insets bottom="16" left="24" right="24" top="8" />
             </padding>

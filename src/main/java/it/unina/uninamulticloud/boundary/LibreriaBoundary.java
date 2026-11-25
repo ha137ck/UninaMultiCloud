@@ -8,9 +8,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -28,8 +32,7 @@ public class LibreriaBoundary {
     @FXML private TableColumn<ElementoMultimediale, String> colTipo;
     @FXML private TableColumn<ElementoMultimediale, String> colFormato;
     @FXML private TableColumn<ElementoMultimediale, String> colDataCreazione;
-    //come si mostra l'immagine?
-    @FXML private TableColumn<ElementoMultimediale, String> immagineCopertina;
+    @FXML private TableColumn<ElementoMultimediale, ElementoMultimediale> immagineCopertina;
 
     @FXML private Label lblMessaggio;
 
@@ -45,6 +48,46 @@ public class LibreriaBoundary {
         colFormato.setCellValueFactory(riga -> new SimpleStringProperty(riga.getValue().getFormato()));
         colDataCreazione.setCellValueFactory(riga ->
                                                                     new SimpleStringProperty(formattaData(riga.getValue().getDataCreazione())));
+
+        immagineCopertina.setCellValueFactory(riga ->
+                new javafx.beans.property.ReadOnlyObjectWrapper<>(riga.getValue()));
+        immagineCopertina.setCellFactory(colonna -> new TableCell<>() {
+            private final ImageView imageView = new ImageView();
+
+            {
+                imageView.setFitWidth(30);
+                imageView.setFitHeight(30);
+                imageView.setPreserveRatio(true);
+                imageView.setSmooth(true);
+            }
+
+            @Override
+            protected void updateItem(ElementoMultimediale elemento, boolean empty) {
+                super.updateItem(elemento, empty);
+
+                if (empty || elemento == null || elemento.getImmagineCopertina() == null
+                        || elemento.getImmagineCopertina().isBlank()) {
+                    setGraphic(null);
+                    return;
+                }
+
+                try {
+                    String percorso = elemento.getImmagineCopertina();
+                    String url = percorso.startsWith("file:") || percorso.startsWith("http")
+                            ? percorso
+                            : new File(percorso).toURI().toString();
+                    Image immagine = new Image(url, 30, 30, true, true, true);
+                    if (immagine.isError()) {
+                        setGraphic(null);
+                    } else {
+                        imageView.setImage(immagine);
+                        setGraphic(imageView);
+                    }
+                } catch (IllegalArgumentException e) {
+                    setGraphic(null);
+                }
+            }
+        });
 
         caricaElementi();
     }
