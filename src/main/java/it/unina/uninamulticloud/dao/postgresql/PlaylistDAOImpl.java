@@ -40,7 +40,7 @@ public class PlaylistDAOImpl implements PlaylistDAO {
     @Override
     public List<Playlist> findByProprietario(String matricola) {
         List<Playlist> lista = new ArrayList<>();
-        String query = SELECT_BASE + " p.matricola = ? ORDER BY dataPubblicazione DESC";
+        String query = SELECT_BASE + " WHERE p.matricola = ? ORDER BY dataPubblicazione DESC";
         Connection conn = DBConnection.getInstance().getConnection();
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 
@@ -59,27 +59,26 @@ public class PlaylistDAOImpl implements PlaylistDAO {
 
     @Override
     public void save(Playlist playlist, String matricolaProprietario) {
-        String query = "INSERT INTO Playlist (titolo, dataPubblicazione, descrizione, tipo, matricola) " +
-                "VALUES (?, ?, ?, ?::TIPO_PLAYLIST, ?)";
+        String query = "INSERT INTO Playlist (titolo, descrizione, tipo, matricola) " +
+                "VALUES (?, ?, ?::TIPO_PLAYLIST, ?)";
         Connection conn = DBConnection.getInstance().getConnection();
         //creo lo statement con l'opzione RETURN_GENERATED_KEYS per ottenere l'ID generato.
         try (PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
             pstmt.setString(1, playlist.getTitolo());
-            pstmt.setTimestamp(2, Timestamp.valueOf(playlist.getDataPubblicazione()));
-            pstmt.setString(3, playlist.getDescrizione());
+            pstmt.setString(2, playlist.getDescrizione());
 
             if (playlist instanceof PlaylistPubblica) {
-                pstmt.setString(4, "pubblica");
+                pstmt.setString(3, "pubblica");
             } else if (playlist instanceof PlaylistPrivata) {
-                pstmt.setString(4, "privata");
+                pstmt.setString(3, "privata");
             } else if (playlist instanceof PlaylistCondivisa) {
-                pstmt.setString(4, "condivisa");
+                pstmt.setString(3, "condivisa");
             } else {
                 throw new IllegalArgumentException("Tipo di playlist sconosciuto");
             }
 
-            pstmt.setString(5, matricolaProprietario);
+            pstmt.setString(4, matricolaProprietario);
             //esegue l'inserimento e restituisce il numero di righe interessate (1 in questo caso)
             int affectedRows = pstmt.executeUpdate();
             if (affectedRows > 0) {
@@ -103,7 +102,7 @@ public class PlaylistDAOImpl implements PlaylistDAO {
      */
     public List<Playlist> findByTipo(String tipo) {
         List<Playlist> lista = new ArrayList<>();
-        String query = SELECT_BASE + " p.tipo = ?::TIPO_PLAYLIST ORDER BY p.dataPubblicazione DESC";
+        String query = SELECT_BASE + " WHERE p.tipo = ?::TIPO_PLAYLIST ORDER BY p.dataPubblicazione DESC";
         //Richiesta di connesione
         Connection conn = DBConnection.getInstance().getConnection();
         try (PreparedStatement pstmt = conn.prepareStatement(query)) {

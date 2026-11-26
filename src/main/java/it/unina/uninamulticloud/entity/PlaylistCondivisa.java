@@ -9,4 +9,8 @@ public class PlaylistCondivisa extends Playlist{
         super(idPlaylist, titolo, dataPubblicazione, descrizione, durataTotale);
     }
 
+    public PlaylistCondivisa(String titolo, String descrizione) {
+        super(titolo, descrizione);
+    }
+
 }

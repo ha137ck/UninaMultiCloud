@@ -9,4 +9,8 @@ public class PlaylistPubblica extends Playlist{
         super(idPlaylist, titolo, dataPubblicazione, descrizione, durataTotale);
     }
 
+    public PlaylistPubblica(String titolo, String descrizione) {
+        super(titolo, descrizione);
+    }
+
 }

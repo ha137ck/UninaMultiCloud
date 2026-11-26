@@ -9,4 +9,8 @@ public class PlaylistPrivata extends Playlist {
         super(idPlaylist, titolo, dataPubblicazione, descrizione, durataTotale);
     }
 
+    public PlaylistPrivata(String titolo, String descrizione) {
+        super(titolo, descrizione);
+    }
+
 }

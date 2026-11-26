@@ -19,6 +19,11 @@ public abstract class Playlist {
         this.durataTotale = durataTotale;
     }
 
+    public Playlist(String titolo, String descrizione) {
+        this.titolo = titolo;
+        this.descrizione = descrizione;
+    }
+
     public long getIdPlaylist() {
         return idPlaylist;
     }
